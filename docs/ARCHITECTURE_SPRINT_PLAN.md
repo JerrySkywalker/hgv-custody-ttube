@@ -23,8 +23,8 @@ The architecture/memory sprint is complete when the new repository has:
 | Sprint 1 | Package skeleton, data contracts, ClosedD/OpenD audit | Complete |
 | Sprint 2 | Contract validators, synthetic fixtures, package smoke tests | Complete |
 | Sprint 3 | STK/codegen boundary audit and MVP consistency plan refinement | Complete |
-| Sprint 4 | Chapter 5 scheduler/bubble taxonomy audit | Pending |
-| Final | Update handoff, backlog, and test summary | Pending |
+| Sprint 4 | Chapter 5 scheduler/bubble taxonomy audit | Complete |
+| Final | Update handoff, backlog, and test summary | In progress |
 
 ## Non-Goals
 
