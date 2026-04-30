@@ -2,55 +2,44 @@
 
 ## Sprint
 
-Architecture / Memory Sprint 1 for `C:\Dev\src\hgv-custody-tpipe`.
+Architecture / Memory Sprint sequence completed on branch `codex/architecture-memory-sprint`.
 
 ## Constraints Followed
 
 - Old project remained read-only.
-- No algorithms were migrated.
-- No old project runner or long experiment was executed.
-- New changes were limited to placeholder package directories and documentation.
+- No old runner or long experiment was executed.
+- No legacy algorithms were migrated.
+- New repository changes were limited to documentation, package placeholders, contract validators, fixtures, and smoke tests.
+- Work was split into small commits.
 
-## Read In New Repository
+## Commits Created
+
+- `b904f61 docs: establish architecture memory baseline`
+- `d65671d docs: define architecture sprint completion plan`
+- `35cbd2c test: add contract validators and smoke fixtures`
+- `c3cd386 docs: audit stk and codegen boundaries`
+- `763bebc docs: audit chapter 5 scheduler taxonomy`
+- Final handoff/backlog commit should follow this file update.
+
+## New Repository State
+
+Architecture memory docs now include:
 
 - `docs/PROJECT_MEMORY.md`
-- `docs/LEGACY_AUDIT.md`
+- `docs/RESEARCH_INTENT.md`
+- `docs/ARCHITECTURE_PRINCIPLES.md`
 - `docs/COMPUTE_MODULES.md`
+- `docs/STK_AND_CODEGEN_BOUNDARIES.md`
 - `docs/MIGRATION_MATRIX.md`
-- `docs/SESSION_HANDOFF.md`
-
-## Read In Old Repository
-
-Read-only ClosedD/OpenD audit areas:
-
-- `stages/stage14_scan_openD_raan_grid.m`
-- `src/search/evaluate_single_layer_walker_stage14.m`
-- `src/search/build_stage14_search_grid.m`
-- `src/stages/stage14/stage14_default_config.m`
-- `run_stages/run_stage14_openD.m`
-- `stages/stage14_plot_raan_profiles.m`
-- `stages/stage14_plot_ns_envelopes.m`
-- `stages/stage14_joint_phase_orientation.m`
-- `stages/stage14_analyze_joint_phase_orientation.m`
-- `stages/stage14_postprocess_joint_phase_orientation.m`
-- `stages/stage14_formal_package_joint_phase_orientation.m`
-- `tests/smoke/manual_smoke_stage14_F_RAAN_grid_A1_legacy_prepivot_20260329.m`
-
-Also ran read-only text searches for `ClosedD`, `OpenD`, `closed_D`, `open_D`, `D_closed`, and `D_open`.
-
-## New Or Modified Files
-
-Added docs:
-
+- `docs/LEGACY_AUDIT.md`
 - `docs/DATA_CONTRACTS.md`
 - `docs/CLOSED_OPEN_D_AUDIT.md`
+- `docs/STK_CODEGEN_AUDIT.md`
+- `docs/CH5_SCHEDULER_BUBBLE_TAXONOMY.md`
+- `docs/ARCHITECTURE_SPRINT_PLAN.md`
+- `docs/ARCHITECTURE_BACKLOG.md`
 
-Modified docs:
-
-- `docs/MIGRATION_MATRIX.md`
-- `docs/SESSION_HANDOFF.md`
-
-Added placeholder package directories, tracked with `.gitkeep`:
+Package skeleton now exists under:
 
 - `src/+tpipe/+core/+traj`
 - `src/+tpipe/+core/+orbit`
@@ -65,56 +54,68 @@ Added placeholder package directories, tracked with `.gitkeep`:
 - `src/+tpipe/+stk`
 - `src/+tpipe/+export`
 
-## Data Contracts Added
+Lightweight validators now exist for:
 
-`docs/DATA_CONTRACTS.md` defines initial contracts for:
+- trajectory artifacts;
+- constellation state artifacts;
+- access artifacts;
+- window artifacts;
+- metric artifacts.
 
-- trajectory artifact;
-- constellation state artifact;
-- access artifact;
-- window artifact;
-- metric artifact.
+Synthetic contract fixtures and smoke tests exist under:
 
-The contracts are intentionally implementation-neutral. They establish field names, units, ownership, baseline cases, and boundary rules without copying legacy algorithms.
+- `tests/fixtures/make_minimal_contract_fixtures.m`
+- `tests/smoke/test_contracts.m`
 
-## ClosedD / OpenD Audit Summary
+## Legacy Audit Summary
 
-OpenD appears to be a Stage14 experiment family rather than a single standalone scalar. The old Stage14 mainline performs DG-only scans over open orientation variables, primarily `RAAN_deg`, with fixed or scanned Walker phasing `F`. Per-row outputs include `D_G_min`, `D_G_mean`, `pass_ratio`, and `feasible_flag`; postprocessing derives RAAN profiles, Ns envelopes, robust stats by F, and best-F-by-RAAN tables.
+Broad legacy audit:
 
-ClosedD was not found as a clear standalone implementation, file, or function name. It remains undefined in engineering terms. It should not be implemented until the research definition is confirmed.
+- Stage01/02/03/04/05/09/14 form the old Chapter 4 static/inverse-design mainline.
+- Stage functions mix compute, cache, logging, progress, plotting, and orchestration.
+- Chapter 5 has two major branches: `ch5_rebuild` and `ch5_dualloop`.
 
-Practical decision: treat OpenD initially as an artifact family for orientation sensitivity summaries, not as a single metric kernel. Keep ClosedD as a documented unresolved item.
+ClosedD/OpenD audit:
 
-## Current Architecture State
+- OpenD is best treated as a Stage14 orientation/RAAN/F sensitivity artifact family, currently DG-only in observed code.
+- ClosedD was not found as a clear standalone implementation and remains unresolved.
 
-The package namespace now has placeholders for:
+STK/codegen audit:
 
-- codegen-friendly core modules;
-- pipeline/cache orchestration;
-- visualization;
-- STK adapter;
-- export/codegen boundary.
+- Old STK code is partial and scenario/state-export oriented.
+- No mature MATLAB Coder, MEX, or C++ export lineage was found.
 
-No MATLAB functions were added yet. This avoids creating premature APIs before the contracts are reviewed.
+Chapter 5 taxonomy:
+
+- Static hold and tracking greedy are the safest first scheduler baselines.
+- Bubble predictive and dual-loop policies require clearer contracts before implementation.
+- Bubble, custody, RMSE, and NIS should be separated into metric/estimation/scheduler concerns.
 
 ## Test Status
 
-No MATLAB tests were run in Sprint 1 because no MATLAB code was added or changed. Directory and documentation changes were verified with filesystem and git status checks.
+Validated in this sprint sequence:
 
-## Suggested Next Sprint
+- `test_startup`: 2 passed, 0 failed.
+- `test_contracts`: 5 passed, 0 failed.
+- MATLAB Code Analyzer reported no issues on newly added validator and contract test files.
 
-Run Architecture / Memory Sprint 2:
+## Important Open Questions
 
-1. Review `docs/DATA_CONTRACTS.md` and decide whether artifact metadata should live inside every core struct or only in pipeline artifacts.
-2. Create minimal constructor/validator stubs for contracts only if the field names are accepted.
-3. Add lightweight MATLAB package smoke tests for the new namespace.
-4. Create synthetic fixture docs or tiny `.mat` fixtures for trajectory/access/window/metric baseline cases.
-5. Ask research side to define ClosedD and the expected scalar summary of OpenD.
-
-## Questions For Web ChatGPT
-
-- What is the exact ClosedD definition in dissertation terms?
-- Should OpenD remain DG-only for Stage14 compatibility, or should its final dissertation form include DA/DT?
+- What is the exact ClosedD definition?
+- Should OpenD remain DG-only for Stage14 compatibility or include DA/DT?
 - Should `RAAN_deg` be generalized as `orientation_deg` in new contracts?
-- What single scalar, if any, should summarize an OpenD scan: worst RAAN DG, RAAN span, feasible RAAN ratio, min feasible Ns, or a combined score?
-- Should core structs include artifact metadata, or should metadata be attached only by `pipeline/cache`?
+- Should artifact metadata be embedded in all contract structs or attached only by `pipeline/cache`?
+- Which synthetic core utility should be implemented first: window extraction, gap segment metrics, or static-hold scheduler?
+
+## Recommended Next Prompt
+
+```text
+进入 hgv-custody-tpipe Implementation Sprint 0。
+请先阅读 docs/ARCHITECTURE_BACKLOG.md、docs/DATA_CONTRACTS.md、docs/SESSION_HANDOFF.md。
+本轮只实现一个最小纯 MATLAB core utility，不迁移旧算法：
+1. 选择 core.visibility 的 synthetic window-index extractor 或 core.metrics 的 gap segment summarizer；
+2. 添加对应 unit test；
+3. 保持 codegen-friendly；
+4. 不读取旧工程输出，不运行长实验；
+5. 小步 git commit。
+```
