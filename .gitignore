@@ -1,0 +1,24 @@
+# MATLAB
+*.asv
+*.m~
+*.mex*
+*.slxc
+*.log
+
+# Local migration paths
+tools/migration/legacy_paths.local.json
+
+# Generated artifacts
+runs/*
+!runs/.gitkeep
+
+artifacts/*
+!artifacts/.gitkeep
+
+outputs/*
+!outputs/.gitkeep
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db

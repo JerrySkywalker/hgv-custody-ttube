@@ -1,0 +1,20 @@
+[mcp_servers.matlab]
+command = "C:\\Dev\\mcp\\servers\\matlab-mcp-core-server\\bin\\matlab-mcp-core-server.exe"
+args = [
+  "--matlab-root=C:\\Program Files\\MATLAB\\R2025b",
+  "--matlab-display-mode=nodesktop",
+  "--matlab-session-mode=new",
+  "--initialize-matlab-on-startup=false",
+  "--disable-telemetry=true",
+  "--initial-working-folder=C:\\Dev\\src\\hgv-custody-tpipe"
+]
+startup_timeout_sec = 60
+tool_timeout_sec = 600
+enabled_tools = [
+  "detect_matlab_toolboxes",
+  "check_matlab_code",
+  "evaluate_matlab_code",
+  "run_matlab_file",
+  "run_matlab_test_file"
+]
+
