@@ -44,11 +44,13 @@ Already completed before this plan:
 - contract validators
 - smoke tests
 
-Recommended next function:
+Completed Batch 1 function:
 
 ```text
 ttube.core.metrics.summarizeGapSegments
 ```
+
+This function is implemented with synthetic unit tests. The unattended Batch 1 sprint did not read the old project and did not depend on legacy outputs.
 
 ## 4. Function To Implement
 
@@ -66,7 +68,7 @@ This function is a primitive used by later:
 - Stage09 DT/gap metrics
 - Chapter 5 bubble/custody metrics
 
-### Suggested signature
+### Implemented signature
 
 ```matlab
 summary = ttube.core.metrics.summarizeGapSegments(t_s, support_mask)
@@ -104,7 +106,7 @@ summary = ttube.core.metrics.summarizeGapSegments(t_s, support_mask)
 - The function must not read or write files.
 - The function must not call plotting, STK, COM, cache, pipeline, or GUI code.
 - The function should be MATLAB Coder friendly as far as practical.
-- If nonuniform time grids are not fully supported, document the chosen duration approximation explicitly.
+- The implemented duration rule is documented in the function: gap duration is approximated as gap sample count multiplied by `median(diff(t_s))`; a single-sample input uses zero sample interval.
 
 ### Error IDs
 
@@ -131,6 +133,8 @@ Use explicit error IDs:
 - invalid nonmonotonic `t_s`
 - invalid `support_mask` size
 - invalid non-logical `support_mask`
+- invalid empty `t_s`
+- single-sample all-true and all-false cases
 
 ### Test style
 
@@ -143,6 +147,8 @@ end
 ```
 
 ## 6. Documentation Updates
+
+Status: completed for Batch 1 closure.
 
 Update:
 
@@ -166,11 +172,11 @@ Mark only the relevant primitive as started or implemented. Do not claim DG/DA/D
 
 ### ARCHITECTURE_BACKLOG.md
 
-Mark:
+Marked:
 
 - core.metrics gap segment summarizer
 
-as implemented or in progress.
+as completed.
 
 Add next step:
 
@@ -204,7 +210,7 @@ Do not:
 - implement C++/MEX export
 - implement GUI
 - run long computations
-- auto-commit without user confirmation
+- auto-commit unless the active sprint instructions explicitly request small-step commits
 
 ## 8. Validation Commands
 
@@ -219,6 +225,8 @@ Codex should use MATLAB MCP to run:
 
 ## 9. Success Criteria
 
+Status: satisfied for Batch 1.
+
 Batch 1 unattended run is successful if:
 
 - `summarizeGapSegments` exists
@@ -230,10 +238,23 @@ Batch 1 unattended run is successful if:
 - docs are updated
 - `SESSION_HANDOFF.md` clearly describes next steps
 
-## 10. What To Do After User Review
+## 10. Batch 1 Validation Scope
 
-After the user reviews the unattended work:
+Validated with MATLAB MCP:
 
-- commit Batch 1
-- decide whether to draft DG/DA/DT contracts
-- do not proceed to legacy baseline extraction until contracts are reviewed
+- `tests/smoke/test_startup.m`
+- `tests/smoke/test_contracts.m`
+- `tests/unit/test_extractWindowIndices.m`
+- `tests/unit/test_runStatus.m`
+- `tests/unit/test_summarizeGapSegments.m`
+
+Code Analyzer reported no issues on the new Batch 1 MATLAB files.
+
+## 11. What To Do After User Review
+
+After the user reviews Batch 1:
+
+- draft and review DG/DA/DT contracts;
+- create synthetic D-metric toy fixtures only after contract agreement;
+- do not proceed to legacy baseline extraction until contracts are reviewed;
+- do not directly migrate Stage05/09 large scans.

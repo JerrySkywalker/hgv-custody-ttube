@@ -505,6 +505,8 @@ Potential future modules:
 
 ### Batch 1: Pure core primitives with synthetic tests
 
+Status: completed in the new `+ttube` namespace with synthetic smoke/unit tests.
+
 Corresponds to lowest-level functionality used by Stage03/04/08/09 and Ch5.
 
 Scope:
@@ -513,6 +515,7 @@ Scope:
 - gap/outage segment summarization
 - artifact validators
 - minimal run status
+- synthetic MATLAB tests for the pure primitives and contracts
 
 Why first:
 
@@ -526,6 +529,16 @@ Representative modules:
 - `ttube.core.visibility.extractWindowIndices`
 - `ttube.core.metrics.summarizeGapSegments`
 - `ttube.pipeline.createRunStatus`
+
+Completed Batch 1 contents:
+
+- contract validators for trajectory, constellation state, access, window, and metric artifacts;
+- `ttube.core.visibility.extractWindowIndices`;
+- `ttube.core.metrics.summarizeGapSegments`;
+- pipeline `status.json` progress MVP;
+- smoke tests and synthetic unit tests.
+
+Stage00-03 have not been migrated. HGV dynamics, Walker generation, real access geometry, FIM/Gramian assembly, DG/DA/DT, ClosedD/OpenD, STK, C++/MEX, and GUI remain unimplemented.
 
 ### Batch 2: D-metric contracts and toy metric kernels
 
@@ -716,13 +729,10 @@ Before moving from Batch 3 to Batch 4:
 
 ## 9. Current Recommended Next Step
 
-Implementation Sprint 1 should finish Batch 1 by adding:
+Batch 1 is complete. The next recommended step is Batch 2 planning:
 
-- `ttube.core.metrics.summarizeGapSegments`
-- unit tests for synthetic support masks
-- documentation updates
-- no old project access
+- draft and review DG/DA/DT contracts, including zero-information and outage handling;
+- build synthetic D-metric toy fixtures after the contracts are agreed;
+- only then plan Stage01-03 legacy golden baseline extraction.
 
-Optional only:
-
-- draft `docs/D_METRIC_CONTRACT_DRAFT.md`, without implementation
+Do not jump directly to Stage05/09 large scans.
