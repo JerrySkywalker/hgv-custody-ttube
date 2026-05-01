@@ -2,120 +2,75 @@
 
 ## Sprint
 
-Architecture / Memory Sprint sequence completed on branch `codex/architecture-memory-sprint`.
+Implementation Sprint 0 on branch `codex/architecture-memory-sprint`.
 
 ## Constraints Followed
 
-- Old project remained read-only.
-- No old runner or long experiment was executed.
-- No legacy algorithms were migrated.
-- New repository changes were limited to documentation, package placeholders, contract validators, fixtures, and smoke tests.
-- Work was split into small commits.
+- Worked only inside `C:\Dev\src\hgv-custody-tpipe`.
+- Did not read or modify the old project.
+- Did not implement HGV dynamics, Walker generation, DG/DA/DT, ClosedD/OpenD, STK, C++/MEX, or GUI.
+- Core code added in this sprint contains no file IO, plotting, STK, COM, cache, manifest, or GUI logic.
+- Pipeline code intentionally uses file IO only for the `status.json` progress MVP.
 
-## Commits Created
+## Files Added
 
-- `b904f61 docs: establish architecture memory baseline`
-- `d65671d docs: define architecture sprint completion plan`
-- `35cbd2c test: add contract validators and smoke fixtures`
-- `c3cd386 docs: audit stk and codegen boundaries`
-- `763bebc docs: audit chapter 5 scheduler taxonomy`
-- Final handoff/backlog commit should follow this file update.
+Core:
 
-## New Repository State
+- `src/+tpipe/+core/+visibility/extractWindowIndices.m`
 
-Architecture memory docs now include:
+Pipeline:
 
-- `docs/PROJECT_MEMORY.md`
-- `docs/RESEARCH_INTENT.md`
-- `docs/ARCHITECTURE_PRINCIPLES.md`
-- `docs/COMPUTE_MODULES.md`
-- `docs/STK_AND_CODEGEN_BOUNDARIES.md`
-- `docs/MIGRATION_MATRIX.md`
-- `docs/LEGACY_AUDIT.md`
-- `docs/DATA_CONTRACTS.md`
-- `docs/CLOSED_OPEN_D_AUDIT.md`
-- `docs/STK_CODEGEN_AUDIT.md`
-- `docs/CH5_SCHEDULER_BUBBLE_TAXONOMY.md`
-- `docs/ARCHITECTURE_SPRINT_PLAN.md`
+- `src/+tpipe/+pipeline/createRunStatus.m`
+- `src/+tpipe/+pipeline/updateRunStepStatus.m`
+- `src/+tpipe/+pipeline/readRunStatus.m`
+- `src/+tpipe/+pipeline/showRunStatus.m`
+
+Tests:
+
+- `tests/unit/test_extractWindowIndices.m`
+- `tests/unit/test_runStatus.m`
+
+## Files Modified
+
 - `docs/ARCHITECTURE_BACKLOG.md`
+- `docs/MIGRATION_MATRIX.md`
+- `docs/SESSION_HANDOFF.md`
 
-Package skeleton now exists under:
+## Implementation Summary
 
-- `src/+tpipe/+core/+traj`
-- `src/+tpipe/+core/+orbit`
-- `src/+tpipe/+core/+sensor`
-- `src/+tpipe/+core/+visibility`
-- `src/+tpipe/+core/+estimation`
-- `src/+tpipe/+core/+metrics`
-- `src/+tpipe/+core/+scheduler`
-- `src/+tpipe/+pipeline`
-- `src/+tpipe/+cache`
-- `src/+tpipe/+viz`
-- `src/+tpipe/+stk`
-- `src/+tpipe/+export`
+`tpipe.core.visibility.extractWindowIndices` extracts complete sliding windows over a monotonic time grid. It returns one full-span window when `Tw_s` is greater than or equal to the total time span. It supports non-1-second grids and window steps that are not integer multiples of sample spacing.
 
-Lightweight validators now exist for:
+The pipeline progress MVP writes a simple `status.json` file:
 
-- trajectory artifacts;
-- constellation state artifacts;
-- access artifacts;
-- window artifacts;
-- metric artifacts.
+- `createRunStatus` creates a run directory and initializes step states as `pending`;
+- `updateRunStepStatus` updates a single step to one of `pending`, `running`, `done`, `failed`, or `skipped`;
+- `readRunStatus` reads `status.json`;
+- `showRunStatus` prints a compact command-line table.
 
-Synthetic contract fixtures and smoke tests exist under:
+GUI is not implemented. Future GUI work should read the same `status.json` file rather than introduce a separate progress state source.
 
-- `tests/fixtures/make_minimal_contract_fixtures.m`
-- `tests/smoke/test_contracts.m`
+## Test Results
 
-## Legacy Audit Summary
+MATLAB MCP validation:
 
-Broad legacy audit:
+- Code Analyzer on all new `.m` files: no warnings or issues after cleanup.
+- `tests/smoke/test_startup.m`: passed.
+- `tests/smoke/test_contracts.m`: passed.
+- `tests/unit/test_extractWindowIndices.m`: passed.
+- `tests/unit/test_runStatus.m`: passed.
 
-- Stage01/02/03/04/05/09/14 form the old Chapter 4 static/inverse-design mainline.
-- Stage functions mix compute, cache, logging, progress, plotting, and orchestration.
-- Chapter 5 has two major branches: `ch5_rebuild` and `ch5_dualloop`.
+## Remaining Non-Goals
 
-ClosedD/OpenD audit:
+- No DAG scheduler.
+- No artifact cache.
+- No resume implementation.
+- No manifest schema beyond the minimal `status.json` progress file.
+- No GUI.
 
-- OpenD is best treated as a Stage14 orientation/RAAN/F sensitivity artifact family, currently DG-only in observed code.
-- ClosedD was not found as a clear standalone implementation and remains unresolved.
+## Suggested Next Sprint
 
-STK/codegen audit:
+Implementation Sprint 1 should stay small. Recommended choices:
 
-- Old STK code is partial and scenario/state-export oriented.
-- No mature MATLAB Coder, MEX, or C++ export lineage was found.
-
-Chapter 5 taxonomy:
-
-- Static hold and tracking greedy are the safest first scheduler baselines.
-- Bubble predictive and dual-loop policies require clearer contracts before implementation.
-- Bubble, custody, RMSE, and NIS should be separated into metric/estimation/scheduler concerns.
-
-## Test Status
-
-Validated in this sprint sequence:
-
-- `test_startup`: 2 passed, 0 failed.
-- `test_contracts`: 5 passed, 0 failed.
-- MATLAB Code Analyzer reported no issues on newly added validator and contract test files.
-
-## Important Open Questions
-
-- What is the exact ClosedD definition?
-- Should OpenD remain DG-only for Stage14 compatibility or include DA/DT?
-- Should `RAAN_deg` be generalized as `orientation_deg` in new contracts?
-- Should artifact metadata be embedded in all contract structs or attached only by `pipeline/cache`?
-- Which synthetic core utility should be implemented first: window extraction, gap segment metrics, or static-hold scheduler?
-
-## Recommended Next Prompt
-
-```text
-进入 hgv-custody-tpipe Implementation Sprint 0。
-请先阅读 docs/ARCHITECTURE_BACKLOG.md、docs/DATA_CONTRACTS.md、docs/SESSION_HANDOFF.md。
-本轮只实现一个最小纯 MATLAB core utility，不迁移旧算法：
-1. 选择 core.visibility 的 synthetic window-index extractor 或 core.metrics 的 gap segment summarizer；
-2. 添加对应 unit test；
-3. 保持 codegen-friendly；
-4. 不读取旧工程输出，不运行长实验；
-5. 小步 git commit。
-```
+1. Add `core.metrics` gap segment summarizer for synthetic logical masks, with unit tests.
+2. Or add a pipeline manifest schema draft that references `status.json` but does not implement resume.
+3. Keep old project read-only and do not run long experiments.

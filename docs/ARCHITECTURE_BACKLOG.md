@@ -10,7 +10,7 @@ This backlog starts after the Architecture / Memory Sprint completion. Items her
 | P0 | Freeze ClosedD definition | research | Do not implement until definition is explicit. |
 | P0 | Freeze OpenD summary statistic | metrics / experiments | Current evidence supports OpenD as Stage14 orientation-sensitivity artifact family. |
 | P1 | Add scheduler trace contract | docs / core.scheduler | Needed before Chapter 5 policy stubs. |
-| P1 | Add synthetic access/window fixtures | tests | Current fixture covers minimal artifacts but not expected window extraction outputs. |
+| P1 | Add synthetic access/window fixtures | tests | Started. `extractWindowIndices` now has unit coverage for regular and non-integer-step windows. |
 | P1 | Add first pure utility constructors | core modules | Only after validator contracts are accepted. |
 | P2 | STK access report design | stk / docs | Legacy has state export but not a mature access adapter. |
 | P2 | Codegen prototype candidate | export / codegen | First candidate should be a pure numeric validator-free kernel. |
@@ -25,10 +25,10 @@ This backlog starts after the Architecture / Memory Sprint completion. Items her
 
 ## Candidate First Implementations
 
-1. `core.visibility` synthetic window-index extractor.
+1. `core.visibility` synthetic window-index extractor. Implemented in `tpipe.core.visibility.extractWindowIndices`.
 2. `core.metrics` gap segment summarizer for synthetic masks.
 3. `core.scheduler` static-hold selection over synthetic candidate IDs.
-4. `pipeline/cache` manifest schema draft.
+4. `pipeline/cache` manifest schema draft. Progress status MVP started with `status.json`; manifest/schema/resume remain future work.
 5. `stk` availability probe stub in new namespace.
 
 Each should arrive with one small MATLAB test and no dependency on old project outputs.
