@@ -10,9 +10,9 @@ This backlog starts after the Architecture / Memory Sprint completion. Items her
 | P0 | Freeze ClosedD definition | research | Do not implement until definition is explicit. |
 | P0 | Freeze OpenD summary statistic | metrics / experiments | Current evidence supports OpenD as Stage14 orientation-sensitivity artifact family. |
 | P1 | Add synthetic access/window fixtures | tests | Started. `extractWindowIndices` now has unit coverage for regular and non-integer-step windows. |
-| P1 | Draft DG/DA/DT contract | docs / core.metrics | Required before implementing any D-metric kernel. Include zero-information and outage handling. |
-| P1 | Add synthetic D-metric toy fixtures | tests | Start only after DG/DA/DT contract review. |
-| P1 | Plan Stage01-03 golden baseline extraction | docs / legacy_reference | Planning only; do not extract before contracts and fixture scope are reviewed. |
+| P1 | Review DG/DA/DT contract draft | docs / core.metrics | Draft completed in `docs/D_METRIC_CONTRACT_DRAFT.md`; production definitions still require review. |
+| P1 | Add synthetic D-metric toy fixtures | tests | Completed for Batch 2 scaffold; extend only after contract review. |
+| P1 | Plan Stage01-03 golden baseline extraction | docs / legacy_reference | Next recommended planning step after D-metric contract review. |
 | P2 | Add scheduler trace contract | docs / core.scheduler | Needed before Chapter 5 policy stubs. |
 | P2 | STK access report design | stk / docs | Legacy has state export but not a mature access adapter. |
 | P2 | Codegen prototype candidate | export / codegen | First candidate should be a pure numeric validator-free kernel. |
@@ -34,5 +34,7 @@ This backlog starts after the Architecture / Memory Sprint completion. Items her
 5. `stk` availability probe stub in new namespace.
 
 Do not directly migrate Stage05/09 large scans. The next implementation sequence should be DG/DA/DT contract draft, synthetic D-metric toy fixtures, then Stage01-03 legacy golden baseline extraction planning.
+
+Batch 2 scaffold now includes `ttube.core.metrics.computeRequirementMargin`, `ttube.core.metrics.combineDTriplet`, and synthetic D-metric fixtures. These are toy primitives only and are not production DG/DA/DT.
 
 Each should arrive with one small MATLAB test and no dependency on old project outputs.

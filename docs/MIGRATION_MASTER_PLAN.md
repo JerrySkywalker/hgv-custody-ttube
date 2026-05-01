@@ -542,6 +542,8 @@ Stage00-03 have not been migrated. HGV dynamics, Walker generation, real access 
 
 ### Batch 2: D-metric contracts and toy metric kernels
 
+Status: started and partially completed with a draft contract plus synthetic toy primitives. This is not production DG/DA/DT and is not a Stage09 migration.
+
 Corresponds mainly to Stage04 and Stage09.
 
 Scope:
@@ -552,8 +554,23 @@ Scope:
 - joint feasibility contract
 - zero-information and outage handling rules
 - toy FIM/Gramian examples
+- generic requirement margin primitive
+- synthetic D-triplet combiner and toy fixtures
 
 Do not implement ClosedD until its definition is frozen.
+
+Completed scaffold:
+
+- `docs/D_METRIC_CONTRACT_DRAFT.md`;
+- `ttube.core.metrics.computeRequirementMargin`;
+- `ttube.core.metrics.combineDTriplet`;
+- synthetic D-metric fixtures and unit tests.
+
+Remaining before Batch 3:
+
+- user/research review of DG/DA/DT production definitions;
+- zero-information and outage handling decisions;
+- Stage01-03 legacy golden baseline extraction planning.
 
 ### Batch 3: Small legacy baseline for Stage01-03
 
@@ -729,10 +746,10 @@ Before moving from Batch 3 to Batch 4:
 
 ## 9. Current Recommended Next Step
 
-Batch 1 is complete. The next recommended step is Batch 2 planning:
+Batch 2 scaffold is partially complete. The next recommended step is review:
 
-- draft and review DG/DA/DT contracts, including zero-information and outage handling;
-- build synthetic D-metric toy fixtures after the contracts are agreed;
-- only then plan Stage01-03 legacy golden baseline extraction.
+- review `docs/D_METRIC_CONTRACT_DRAFT.md`;
+- decide zero-information, outage, DA direction/projection, and DT duration rules;
+- then plan Stage01-03 legacy golden baseline extraction.
 
 Do not jump directly to Stage05/09 large scans.
