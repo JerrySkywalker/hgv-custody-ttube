@@ -2,40 +2,36 @@ function tests = test_combineDTriplet
 tests = functiontests(localfunctions);
 end
 
-function setupOnce(~)
+function setupOnce(testCase)
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(repoRoot);
 startup('force', true);
+addpath(fullfile(repoRoot, 'tests', 'fixtures'));
+testCase.TestData.fixtures = make_synthetic_d_metric_fixtures();
 end
 
 function testAllPass(testCase)
-joint = ttube.core.metrics.combineDTriplet(1.2, 1.1, 1.3);
-verifyJoint(testCase, joint, 1.1, true, "OK");
+verifyFixtureCase(testCase, testCase.TestData.fixtures.all_pass);
 end
 
 function testGFailure(testCase)
-joint = ttube.core.metrics.combineDTriplet(0.8, 1.2, 1.3);
-verifyJoint(testCase, joint, 0.8, false, "G");
+verifyFixtureCase(testCase, testCase.TestData.fixtures.fail_G);
 end
 
 function testAFailure(testCase)
-joint = ttube.core.metrics.combineDTriplet(1.2, 0.7, 1.3);
-verifyJoint(testCase, joint, 0.7, false, "A");
+verifyFixtureCase(testCase, testCase.TestData.fixtures.fail_A);
 end
 
 function testTFailure(testCase)
-joint = ttube.core.metrics.combineDTriplet(1.2, 1.3, 0.6);
-verifyJoint(testCase, joint, 0.6, false, "T");
+verifyFixtureCase(testCase, testCase.TestData.fixtures.fail_T);
 end
 
 function testMultipleFailures(testCase)
-joint = ttube.core.metrics.combineDTriplet(0.9, 0.7, 0.8);
-verifyJoint(testCase, joint, 0.7, false, "A");
+verifyFixtureCase(testCase, testCase.TestData.fixtures.fail_multiple);
 end
 
 function testTieRule(testCase)
-jointG = ttube.core.metrics.combineDTriplet(0.8, 0.8, 0.9);
-verifyJoint(testCase, jointG, 0.8, false, "G");
+verifyFixtureCase(testCase, testCase.TestData.fixtures.tie_case);
 
 jointA = ttube.core.metrics.combineDTriplet(1.1, 0.8, 0.8);
 verifyJoint(testCase, jointA, 0.8, false, "A");
@@ -64,4 +60,11 @@ function verifyJoint(testCase, joint, expectedMargin, expectedFeasible, expected
 verifyEqual(testCase, joint.joint_margin, expectedMargin, 'AbsTol', 1e-12);
 verifyEqual(testCase, joint.joint_feasible, expectedFeasible);
 verifyEqual(testCase, joint.dominant_fail_tag, expectedTag);
+end
+
+function verifyFixtureCase(testCase, fixtureCase)
+joint = ttube.core.metrics.combineDTriplet(fixtureCase.DG_margin, ...
+    fixtureCase.DA_margin, fixtureCase.DT_margin);
+verifyJoint(testCase, joint, fixtureCase.joint_margin, ...
+    fixtureCase.joint_feasible, fixtureCase.dominant_fail_tag);
 end
