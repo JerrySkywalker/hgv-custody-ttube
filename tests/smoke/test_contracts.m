@@ -12,32 +12,32 @@ end
 
 function testTrajectoryContract(testCase)
 f = testCase.TestData.fixtures;
-verifyTrue(testCase, tpipe.core.traj.validateTrajectoryArtifact(f.trajectory));
+verifyTrue(testCase, ttube.core.traj.validateTrajectoryArtifact(f.trajectory));
 bad = rmfield(f.trajectory, 'r_eci_km');
-verifyError(testCase, @() tpipe.core.traj.validateTrajectoryArtifact(bad), ...
-    'tpipe:traj:MissingField');
+verifyError(testCase, @() ttube.core.traj.validateTrajectoryArtifact(bad), ...
+    'ttube:traj:MissingField');
 end
 
 function testConstellationContract(testCase)
 f = testCase.TestData.fixtures;
-verifyTrue(testCase, tpipe.core.orbit.validateConstellationStateArtifact(f.constellation));
+verifyTrue(testCase, ttube.core.orbit.validateConstellationStateArtifact(f.constellation));
 end
 
 function testAccessContract(testCase)
 f = testCase.TestData.fixtures;
-verifyTrue(testCase, tpipe.core.visibility.validateAccessArtifact(f.access));
+verifyTrue(testCase, ttube.core.visibility.validateAccessArtifact(f.access));
 end
 
 function testWindowContract(testCase)
 f = testCase.TestData.fixtures;
-verifyTrue(testCase, tpipe.core.visibility.validateWindowArtifact(f.window));
+verifyTrue(testCase, ttube.core.visibility.validateWindowArtifact(f.window));
 end
 
 function testMetricContract(testCase)
 f = testCase.TestData.fixtures;
-verifyTrue(testCase, tpipe.core.metrics.validateMetricArtifact(f.metric));
+verifyTrue(testCase, ttube.core.metrics.validateMetricArtifact(f.metric));
 bad = f.metric;
 bad.pass_ratio = 1.5;
-verifyError(testCase, @() tpipe.core.metrics.validateMetricArtifact(bad), ...
-    'tpipe:metrics:InvalidPassRatio');
+verifyError(testCase, @() ttube.core.metrics.validateMetricArtifact(bad), ...
+    'ttube:metrics:InvalidPassRatio');
 end

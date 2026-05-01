@@ -2,7 +2,7 @@
 
 ## Repository Goal
 
-`hgv-custody-tpipe` is the clean MATLAB engineering reconstruction of the dissertation codebase for HGV custody inversion and scheduling. Its purpose is to turn the legacy exploratory MATLAB work into a layered, testable, resumable research pipeline that can later support STK validation and C++/MEX export.
+`hgv-custody-ttube` is the clean MATLAB engineering reconstruction of the dissertation codebase for HGV custody inversion and scheduling. Its purpose is to turn the legacy exploratory MATLAB work into a layered, testable, resumable research codebase for trajectory tube analysis that can later support STK validation and C++/MEX export.
 
 ## Legacy Project Position
 
@@ -13,7 +13,7 @@ The old project at `C:\Dev\src\hgv-custody-inversion-scheduling` is a read-only 
 The new repository is the engineering home for the refactor. It should hold:
 
 - stable architecture documents under `docs/`;
-- codegen-friendly MATLAB core modules under `src/+tpipe/+core`;
+- codegen-friendly MATLAB core modules under `src/+ttube/+core`;
 - pipeline, cache, backend, visualization, experiment, STK, and export layers with clear boundaries;
 - small smoke tests and baseline cases before larger experiments are reintroduced.
 
@@ -27,12 +27,13 @@ Direct refactoring would risk breaking legacy results that still serve as the co
 
 ## Long-Term Codex Rules
 
-- Modify only files inside `C:\Dev\src\hgv-custody-tpipe`.
+- Modify only files inside `C:\Dev\src\hgv-custody-ttube`.
 - Treat `C:\Dev\src\hgv-custody-inversion-scheduling` as read-only evidence.
 - Avoid long-running experiments by default.
 - Prefer small commits and small functional slices.
 - Write durable conclusions into `docs/` so future Codex and ChatGPT sessions can recover context.
 - Keep computation, plotting, STK, cache, and export concerns separated.
+- Use trajectory tube for the dissertation object; reserve pipeline for software execution flow such as DAGs, cache, manifests, resume, and run status.
 - Do not migrate large legacy code blocks blindly. First define contracts, baseline cases, and tests.
 
 ## MATLAB MCP Boundary

@@ -2,11 +2,11 @@
 
 ## Sprint
 
-Implementation Sprint 0 on branch `codex/architecture-memory-sprint`.
+Terminology Rename Sprint, following Implementation Sprint 0.
 
 ## Constraints Followed
 
-- Worked only inside `C:\Dev\src\hgv-custody-tpipe`.
+- Worked only inside `C:\Dev\src\hgv-custody-ttube`.
 - Did not read or modify the old project.
 - Did not implement HGV dynamics, Walker generation, DG/DA/DT, ClosedD/OpenD, STK, C++/MEX, or GUI.
 - Core code added in this sprint contains no file IO, plotting, STK, COM, cache, manifest, or GUI logic.
@@ -16,14 +16,14 @@ Implementation Sprint 0 on branch `codex/architecture-memory-sprint`.
 
 Core:
 
-- `src/+tpipe/+core/+visibility/extractWindowIndices.m`
+- `src/+ttube/+core/+visibility/extractWindowIndices.m`
 
 Pipeline:
 
-- `src/+tpipe/+pipeline/createRunStatus.m`
-- `src/+tpipe/+pipeline/updateRunStepStatus.m`
-- `src/+tpipe/+pipeline/readRunStatus.m`
-- `src/+tpipe/+pipeline/showRunStatus.m`
+- `src/+ttube/+pipeline/createRunStatus.m`
+- `src/+ttube/+pipeline/updateRunStepStatus.m`
+- `src/+ttube/+pipeline/readRunStatus.m`
+- `src/+ttube/+pipeline/showRunStatus.m`
 
 Tests:
 
@@ -38,7 +38,9 @@ Tests:
 
 ## Implementation Summary
 
-`tpipe.core.visibility.extractWindowIndices` extracts complete sliding windows over a monotonic time grid. It returns one full-span window when `Tw_s` is greater than or equal to the total time span. It supports non-1-second grids and window steps that are not integer multiples of sample spacing.
+`ttube.core.visibility.extractWindowIndices` extracts complete sliding windows over a monotonic time grid. It returns one full-span window when `Tw_s` is greater than or equal to the total time span. It supports non-1-second grids and window steps that are not integer multiples of sample spacing.
+
+The MATLAB package now uses `+ttube`. Research text should use trajectory tube for the dissertation object. Pipeline remains valid only for software execution flow, including DAG/cache/manifest/resume/run-status concepts.
 
 The pipeline progress MVP writes a simple `status.json` file:
 

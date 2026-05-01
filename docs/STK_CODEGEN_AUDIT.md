@@ -27,7 +27,7 @@ The old STK integration is partial and scenario-oriented.
 
 `stk_export_satellite_states` calls STK `ReportCreate`, attempts several report styles, normalizes the exported table to `time_s`, `x_km`, `y_km`, `z_km`, and mirrors the CSV export.
 
-Key limitation: the observed STK code validates constellation/scenario geometry and satellite state export. Sprint 3 did not find a mature STK access-window adapter for target-sensor access reports. That should be designed in the new `src/+tpipe/+stk` layer instead of copied from legacy code.
+Key limitation: the observed STK code validates constellation/scenario geometry and satellite state export. Sprint 3 did not find a mature STK access-window adapter for target-sensor access reports. That should be designed in the new `src/+ttube/+stk` layer instead of copied from legacy code.
 
 ## Codegen / C++ Findings
 
@@ -35,11 +35,11 @@ No mature MATLAB Coder, MEX, C++ export, `coder.config`, or generated-code proje
 
 Some Stage15 files use words like kernel, static world, pair bank, and template, but these appear to be MATLAB analysis kernels and dataset builders, not MATLAB Coder or C++ export infrastructure.
 
-Conclusion: `src/+tpipe/+export` and `codegen/` in the new repository should be greenfield. They should target stable numeric core kernels only after contracts and baseline tests are accepted.
+Conclusion: `src/+ttube/+export` and `codegen/` in the new repository should be greenfield. They should target stable numeric core kernels only after contracts and baseline tests are accepted.
 
 ## STK Adapter Boundary For New Repo
 
-`src/+tpipe/+stk` should own:
+`src/+ttube/+stk` should own:
 
 - STK availability checks;
 - scenario creation;
@@ -54,7 +54,7 @@ It must not live in core modules. It may depend on pipeline artifacts and core d
 
 ## Codegen Boundary For New Repo
 
-`src/+tpipe/+export` and `codegen/` should own:
+`src/+ttube/+export` and `codegen/` should own:
 
 - MATLAB Coder entrypoints;
 - fixed-size or bounded-size type definitions;

@@ -25,11 +25,11 @@ The core layer must not contain:
 
 ## STK Boundary
 
-STK code belongs only under `src/+tpipe/+stk`. That layer may translate MATLAB core contracts into STK objects and translate STK access, geometry, or ephemeris results back into pipeline artifacts.
+STK code belongs only under `src/+ttube/+stk`. That layer may translate MATLAB core contracts into STK objects and translate STK access, geometry, or ephemeris results back into pipeline artifacts.
 
 ## Export Boundary
 
-MATLAB Coder and C++/MEX export code belongs under `src/+tpipe/+export` and `codegen/`. Export wrappers should depend on core functions, not on pipeline, viz, STK, or experiment code.
+MATLAB Coder and C++/MEX export code belongs under `src/+ttube/+export` and `codegen/`. Export wrappers should depend on core functions, not on pipeline, viz, STK, or experiment code.
 
 ## Viz Boundary
 

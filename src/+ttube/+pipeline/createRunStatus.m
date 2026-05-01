@@ -5,7 +5,7 @@ function statusDoc = createRunStatus(runDir, runId, stepIds)
 % same file without depending on MATLAB pipeline internals.
 
 if nargin < 3
-    error('tpipe:pipeline:InvalidInput', 'runDir, runId, and stepIds are required.');
+    error('ttube:pipeline:InvalidInput', 'runDir, runId, and stepIds are required.');
 end
 
 runDir = char(string(runDir));
@@ -42,12 +42,12 @@ elseif isstring(stepIds)
 elseif iscellstr(stepIds)
     ids = stepIds(:);
 else
-    error('tpipe:pipeline:InvalidStepIds', ...
+    error('ttube:pipeline:InvalidStepIds', ...
         'stepIds must be a char, string array, or cell array of character vectors.');
 end
-assert(~isempty(ids), 'tpipe:pipeline:InvalidStepIds', 'stepIds must not be empty.');
+assert(~isempty(ids), 'ttube:pipeline:InvalidStepIds', 'stepIds must not be empty.');
 for k = 1:numel(ids)
-    assert(~isempty(ids{k}), 'tpipe:pipeline:InvalidStepIds', ...
+    assert(~isempty(ids{k}), 'ttube:pipeline:InvalidStepIds', ...
         'stepIds must not contain empty IDs.');
 end
 end
@@ -55,7 +55,7 @@ end
 function local_write_status(path, statusDoc)
 txt = jsonencode(statusDoc, 'PrettyPrint', true);
 fid = fopen(path, 'w');
-assert(fid > 0, 'tpipe:pipeline:StatusWriteFailed', 'Failed to open status file for writing.');
+assert(fid > 0, 'ttube:pipeline:StatusWriteFailed', 'Failed to open status file for writing.');
 cleanup = onCleanup(@() fclose(fid));
 fprintf(fid, '%s', txt);
 end

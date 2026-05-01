@@ -25,7 +25,7 @@ This backlog starts after the Architecture / Memory Sprint completion. Items her
 
 ## Candidate First Implementations
 
-1. `core.visibility` synthetic window-index extractor. Implemented in `tpipe.core.visibility.extractWindowIndices`.
+1. `core.visibility` synthetic window-index extractor. Implemented in `ttube.core.visibility.extractWindowIndices`.
 2. `core.metrics` gap segment summarizer for synthetic masks.
 3. `core.scheduler` static-hold selection over synthetic candidate IDs.
 4. `pipeline/cache` manifest schema draft. Progress status MVP started with `status.json`; manifest/schema/resume remain future work.

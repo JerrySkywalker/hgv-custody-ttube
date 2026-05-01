@@ -2,13 +2,13 @@
 
 ## Dissertation Object
 
-The dissertation studies trajectory-pipeline modeling and space-based sensing resource inverse design for continuous custody of non-cooperative HGV targets.
+The dissertation studies trajectory tube modeling and space-based sensing resource inverse design for continuous custody of non-cooperative HGV targets.
 
 The core question is not only whether a target can be observed at isolated moments, but whether the sensing constellation and scheduling policy can preserve mission-useful custody over time, under difficult windows and dynamic resource limits.
 
-## Trajectory Pipeline
+## Trajectory Tube
 
-The trajectory pipeline represents HGV target motion as reusable, analyzable trajectory families. It should include nominal entries, heading perturbations, and critical geometries. The new code should make the trajectory data contract explicit so visibility, estimation, metrics, scheduling, STK comparison, and C++ export can consume the same trajectory representation.
+The trajectory tube represents HGV target motion as reusable, analyzable trajectory families. It should include nominal entries, heading perturbations, and critical geometries. The new code should make the trajectory data contract explicit so visibility, estimation, metrics, scheduling, STK comparison, and C++ export can consume the same trajectory representation.
 
 ## Continuous Custody
 

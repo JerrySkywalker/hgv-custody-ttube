@@ -5,7 +5,7 @@
 ## 1. 项目路径
 
 ```text
-C:\Dev\src\hgv-custody-tpipe
+C:\Dev\src\hgv-custody-ttube
 ```
 
 ## 2. 当前 MATLAB MCP 配置
@@ -49,7 +49,7 @@ True
 项目级 Codex 配置文件：
 
 ```text
-C:\Dev\src\hgv-custody-tpipe\.codex\config.toml
+C:\Dev\src\hgv-custody-ttube\.codex\config.toml
 ```
 
 ## 3. 使用方法
@@ -57,7 +57,7 @@ C:\Dev\src\hgv-custody-tpipe\.codex\config.toml
 进入项目目录：
 
 ```powershell
-cd "C:\Dev\src\hgv-custody-tpipe"
+cd "C:\Dev\src\hgv-custody-ttube"
 codex
 ```
 
@@ -110,7 +110,7 @@ args = [
   "--matlab-session-mode=new",
   "--initialize-matlab-on-startup=false",
   "--disable-telemetry=true",
-  "--initial-working-folder=C:\\Dev\\src\\hgv-custody-tpipe"
+  "--initial-working-folder=C:\\Dev\\src\\hgv-custody-ttube"
 ]
 startup_timeout_sec = 60
 tool_timeout_sec = 600

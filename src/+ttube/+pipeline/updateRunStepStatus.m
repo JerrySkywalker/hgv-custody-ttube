@@ -10,10 +10,10 @@ stepStatus = char(string(stepStatus));
 message = char(string(message));
 local_validate_step_status(stepStatus);
 
-statusDoc = tpipe.pipeline.readRunStatus(runDir);
+statusDoc = ttube.pipeline.readRunStatus(runDir);
 
 idx = local_find_step(statusDoc.steps, stepId);
-assert(idx > 0, 'tpipe:pipeline:StepNotFound', 'Step not found: %s', stepId);
+assert(idx > 0, 'ttube:pipeline:StepNotFound', 'Step not found: %s', stepId);
 
 statusDoc.steps(idx).status = stepStatus;
 statusDoc.steps(idx).message = message;
@@ -32,7 +32,7 @@ for k = 1:numel(allowed)
         break;
     end
 end
-assert(tf, 'tpipe:pipeline:InvalidStepStatus', ...
+assert(tf, 'ttube:pipeline:InvalidStepStatus', ...
     'Invalid step status. Allowed values: pending, running, done, failed, skipped.');
 end
 
@@ -49,7 +49,7 @@ end
 function local_write_status(path, statusDoc)
 txt = jsonencode(statusDoc, 'PrettyPrint', true);
 fid = fopen(path, 'w');
-assert(fid > 0, 'tpipe:pipeline:StatusWriteFailed', 'Failed to open status file for writing.');
+assert(fid > 0, 'ttube:pipeline:StatusWriteFailed', 'Failed to open status file for writing.');
 cleanup = onCleanup(@() fclose(fid));
 fprintf(fid, '%s', txt);
 end

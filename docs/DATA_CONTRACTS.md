@@ -15,7 +15,7 @@ This document defines the initial artifact contracts for the new repository. The
 
 Purpose: represent one target trajectory or a family member produced by `core.traj` or an external backend.
 
-Owner: `src/+tpipe/+core/+traj` for numeric state contract; `pipeline/cache` for artifact metadata.
+Owner: `src/+ttube/+core/+traj` for numeric state contract; `pipeline/cache` for artifact metadata.
 
 Required fields:
 

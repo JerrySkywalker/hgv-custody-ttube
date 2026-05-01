@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本仓库是博士论文 MATLAB 工程的重构版本。
+本仓库是博士论文 MATLAB 工程的重构版本，仓库名为 hgv-custody-ttube，MATLAB package 名为 +ttube。
 
 ## 基本规则
 
@@ -10,3 +10,5 @@
 4. MATLAB MCP 仅用于环境检查、静态检查、smoke test 和小规模验证。
 5. 计算核心、绘图、STK 接口、C++ 导出接口需要逐步分层实现。
 6. 每次修改应小步进行，并说明影响范围。
+7. 论文研究对象统一称为 trajectory tube（中文：轨迹管道）。
+8. pipeline/cache 只表示软件执行流水线、缓存、manifest、resume、run status 等工程语境。

@@ -1,7 +1,7 @@
 function showRunStatus(runDir)
 %SHOWRUNSTATUS Print a compact status table for a run.
 
-statusDoc = tpipe.pipeline.readRunStatus(runDir);
+statusDoc = ttube.pipeline.readRunStatus(runDir);
 
 fprintf('Run: %s\n', char(string(statusDoc.run_id)));
 fprintf('%-24s %-10s %s\n', 'Step', 'Status', 'Message');

@@ -44,7 +44,7 @@
   .\setup_project_matlab_mcp.ps1
 
 .EXAMPLE
-  .\setup_project_matlab_mcp.ps1 -ProjectRoot "C:\Dev\src\hgv-custody-tpipe" -OverwriteMatlabSection
+  .\setup_project_matlab_mcp.ps1 -ProjectRoot "C:\Dev\src\hgv-custody-ttube" -OverwriteMatlabSection
 
 .EXAMPLE
   .\setup_project_matlab_mcp.ps1 -SessionMode existing -DisplayMode desktop

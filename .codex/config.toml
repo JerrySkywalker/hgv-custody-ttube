@@ -6,7 +6,7 @@ args = [
   "--matlab-session-mode=new",
   "--initialize-matlab-on-startup=false",
   "--disable-telemetry=true",
-  "--initial-working-folder=C:\\Dev\\src\\hgv-custody-tpipe"
+  "--initial-working-folder=C:\\Dev\\src\\hgv-custody-ttube"
 ]
 startup_timeout_sec = 60
 tool_timeout_sec = 600
