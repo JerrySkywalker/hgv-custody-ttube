@@ -1,0 +1,7 @@
+{
+  "legacy_root": "C:/Dev/src/hgv-custody-inversion-scheduling",
+  "new_root": "C:/Dev/src/hgv-custody-ttube",
+  "matlab_root": "",
+  "baseline_id": "stage01_03_minimal",
+  "allow_legacy_run": false
+}
