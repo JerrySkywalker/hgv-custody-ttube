@@ -574,7 +574,7 @@ Remaining before Batch 3:
 
 ### Batch 3: Small legacy baseline for Stage01-03
 
-Status: scaffold started. A read-only Stage01-03 audit and `legacy_reference/golden_small/stage01_03_minimal` manifest scaffold exist, but no legacy extraction has been run and no golden artifact has been generated.
+Status: extraction scaffold completed. A read-only Stage01-03 audit, `legacy_reference/golden_small/stage01_03_minimal` manifest scaffold, dry-run migration tools, and manifest regression test exist, but no legacy extraction has been run and no golden artifact has been generated.
 
 Corresponds to Stage01/02/03.
 
@@ -596,6 +596,7 @@ Current Batch 3 guardrail:
 - do not run full Stage01-03 until a reviewed lightweight extraction path exists;
 - do not commit large legacy outputs;
 - first extract only one minimal case such as `N01` from reviewed cache files or a dedicated safe extractor.
+- baseline extraction requires explicit user confirmation and must remain read-only with respect to the old repository.
 
 ### Batch 4: Stage05/09 static inverse design tiny grid
 
@@ -757,7 +758,7 @@ Before moving from Batch 3 to Batch 4:
 Batch 3 scaffold has started. The next recommended step is review:
 
 - review `docs/BATCH3_LEGACY_STAGE01_03_BASELINE_PLAN.md`;
-- decide whether to implement a read-only cache extractor for `stage01_03_minimal`;
+- review and, if approved, extend the dry-run cache extractor for `stage01_03_minimal`;
 - keep Stage05/09/14 and Ch5 out of scope.
 
 Do not jump directly to Stage05/09 large scans.
