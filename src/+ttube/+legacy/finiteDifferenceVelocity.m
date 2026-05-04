@@ -4,7 +4,7 @@ function v = finiteDifferenceVelocity(t_s, r_km)
 t_s = t_s(:);
 assert(size(r_km, 1) == numel(t_s) && size(r_km, 2) == 3, ...
     'ttube:legacy:InvalidState', 'Position must be Nt-by-3.');
-if numel(t_s) == 1
+if isscalar(t_s)
     v = zeros(1, 3);
     return;
 end

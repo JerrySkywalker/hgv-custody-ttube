@@ -15,9 +15,9 @@ result.value = value;
 result.requirement = requirement_s;
 result.margin = margin;
 result.feasible = feasible;
-result.failure_tag = string('T');
+result.failure_tag = "T";
 if feasible
-    result.failure_tag = string('OK');
+    result.failure_tag = "OK";
 end
 result.gap_summary = gap;
 result.production_alignment = 'interface_ready_support_mask_not_stage09_aligned';

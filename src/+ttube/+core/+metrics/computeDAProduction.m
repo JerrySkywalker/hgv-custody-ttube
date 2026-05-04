@@ -1,4 +1,4 @@
-function result = computeDAProduction(varargin)
+function computeDAProduction(varargin)
 %COMPUTEDAPRODUCTION Interface placeholder for Stage09 DA.
 
 error('ttube:metrics:BackendNotImplemented', ...
