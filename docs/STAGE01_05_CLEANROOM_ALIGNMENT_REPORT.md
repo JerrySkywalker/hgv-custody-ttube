@@ -35,6 +35,12 @@ Completed checks:
 - Native Stage04 information matrices compared against legacy helper FIM on the same access/constellation inputs.
 - Native Stage05 tiny search compared against legacy-helper tiny evaluation for row count, `Ns`, finite DG, and feasible flag availability.
 
+Validation suite:
+
+- All requested smoke/unit/static/integration tests passed.
+- `tests/regression/legacy/test_stage0103GoldenArtifacts.m` remains an expected incomplete assumption because the golden `manifest.json` has not been generated.
+- Code Analyzer was clean for all new/modified `.m` files in this sprint.
+
 ## Alignment Detail
 
 | Stage | Status | Notes |

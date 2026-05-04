@@ -2,137 +2,133 @@
 
 ## Sprint
 
-Overnight Stage01-05 Production Alignment Sprint.
+Clean-Room Stage01-05 Native Reimplementation Sprint.
 
 ## Branch
+
+`codex/cleanroom-stage01-05-native`
+
+## Base Branch
 
 `codex/overnight-stage01-05-production-alignment`
 
 ## Commits
 
-- `ba6a10e feat: add stage01-05 tiny alignment pipeline`
-- `85d1474 test: validate stage01-05 overnight alignment`
+- `77689ef test: guard cleanroom core from legacy dependencies`
+- `18dc736 feat: implement native minimal stage01 casebank`
+- `d2bc76f feat: implement native hgv trajectory prototype`
+- `2c20d88 feat: implement native walker constellation propagation`
+- `2cc6aa5 feat: implement native access geometry`
+- `9ace662 feat: implement native window information and dg`
+- `d6486d2 feat: implement native stage05 tiny search`
+- `641e814 refactor: isolate legacy helpers from cleanroom core`
+- `634555a test: validate cleanroom stage01-05 alignment`
+- `4da6bfe test: run cleanroom stage01-05 validation suite`
 
 No push was performed.
 
-## Constraints Followed
-
-- Modified files only inside `C:\Dev\src\hgv-custody-ttube`.
-- Treated `C:\Dev\src\hgv-custody-inversion-scheduling` as read-only.
-- Read legacy Stage01-05 helper code and default params.
-- Did not run old full Stage05.
-- Did not run Stage09, Stage14, Ch5, ClosedD, STK, or C++/MEX.
-- Ran only small new-pipeline smoke/integration tests and helper-level legacy adapter calls.
-- Did not add any file over 5 MB.
-
-## Added Or Modified Files
-
-Core adapters:
-
-- `src/+ttube/+core/+traj/propagateHgvTrajectory.m`
-- `src/+ttube/+core/+traj/propagateHgvTrajectory_legacyStage02.m`
-- `src/+ttube/+core/+orbit/buildWalkerConstellation.m`
-- `src/+ttube/+core/+orbit/buildWalkerConstellation_legacyStage03.m`
-- `src/+ttube/+core/+orbit/propagateWalkerConstellation.m`
-- `src/+ttube/+core/+orbit/propagateWalkerConstellation_legacyStage03.m`
-- `src/+ttube/+core/+sensor/computeAccessGeometry.m`
-- `src/+ttube/+core/+sensor/computeAccessGeometry_legacyStage03.m`
-- `src/+ttube/+core/+visibility/buildWindowGrid.m`
-- `src/+ttube/+core/+estimation/buildWindowInformationMatrix.m`
-- `src/+ttube/+core/+estimation/buildWindowInformationMatrix_legacyStage04.m`
-- `src/+ttube/+core/+metrics/calibrateGammaRequirement.m`
-- `src/+ttube/+core/+metrics/computeDGProduction.m`
-- `src/+ttube/+core/+metrics/computeDAProduction.m`
-- `src/+ttube/+core/+metrics/computeDTProduction.m`
-- `src/+ttube/+core/+metrics/computeOpenDInterface.m`
-
-Legacy helpers:
-
-- `src/+ttube/+legacy/defaultLegacyRoot.m`
-- `src/+ttube/+legacy/findLatestCache.m`
-- `src/+ttube/+legacy/finiteDifferenceVelocity.m`
-- `src/+ttube/+legacy/loadDefaultParams.m`
-- `src/+ttube/+legacy/selectCaseById.m`
-- `src/+ttube/+legacy/withLegacyPath.m`
-
-Stage05 tiny pipeline:
-
-- `src/+ttube/+experiments/+stage05/buildStage01CasebankMinimal.m`
-- `src/+ttube/+experiments/+stage05/buildTinySearchGrid.m`
-- `src/+ttube/+experiments/+stage05/evaluateWalkerDesignTiny.m`
-- `src/+ttube/+experiments/+stage05/runStage05TinySearch.m`
-
-Tests:
-
-- `tests/unit/test_metricBackendInterfaces.m`
-- `tests/integration/test_stage01CasebankMinimal.m`
-- `tests/integration/test_stage02HgvTrajectoryAdapter.m`
-- `tests/integration/test_stage03WalkerAccessAdapter.m`
-- `tests/integration/test_stage04WindowInfoGammaAdapter.m`
-- `tests/integration/test_stage04DGProductionAdapter.m`
-- `tests/integration/test_stage05TinySearchPipeline.m`
-- `tests/integration/test_stage01To05Alignment.m`
-- `tests/regression/legacy/test_stage0103GoldenArtifacts.m`
-
-Docs:
-
-- `docs/STAGE01_05_ALIGNMENT_DESIGN.md`
-- `docs/STAGE01_05_ALIGNMENT_REPORT.md`
-- `docs/MIGRATION_MASTER_PLAN.md`
-- `docs/MIGRATION_MATRIX.md`
-- `docs/SESSION_HANDOFF.md`
-
 ## Run Directory
 
-`runs/overnight_stage01_05_production_alignment_20260504_164129`
+`runs/cleanroom_stage01_05_native_20260504_171235`
 
-The run directory contains `status.json` plus small `.mat`/`.csv` smoke outputs. These were not committed.
+The run status was updated through the sprint. Run outputs were not committed.
 
-## Alignment Status
+## Native Status
 
-Stage01: production aligned for selected N01 case fields through `build_casebank_stage01`.
+Stage01 native: implemented minimal deterministic N01 case via `buildStage01CasebankNative`. It is flat-ENU pseudo-ECI and approximate; full geodetic parity remains pending.
 
-Stage02 HGV dynamics: production aligned at helper-adapter level through `propagate_hgv_case_stage02`; `v_eci_kmps` is finite-difference derived because legacy helper output does not expose full ECI velocity.
+Stage02 native HGV: implemented `propagateHgvTrajectoryNative`, `hgvDynamicsPointMass`, and `rk4Step`. It is a simplified point-mass prototype with replaceable dynamics/control/atmosphere/aero hooks. It is not full legacy VTC parity.
 
-Stage03 Walker propagator: production aligned at helper-adapter level through `build_single_layer_walker_stage03` and `propagate_constellation_stage03`; constellation velocity is finite-difference derived.
+Stage03 native Walker: implemented Walker-T builder and circular two-body propagator. This matches the legacy helper's Walker parameter semantics.
 
-Stage03 real access geometry: production aligned at helper-adapter level through `compute_visibility_matrix_stage03`.
+Stage03 native access: implemented range, Earth occlusion, and off-nadir checks in `core.sensor`.
 
-Stage04 window/FIM/gamma: production aligned at helper-adapter level for window FIM through `build_window_info_matrix_stage04`; gamma interface supports fixed and quantile modes.
+Stage04 native window/FIM/DG: `buildWindowGrid` remains native; `buildWindowInformationMatrixNative` implements LOS angle information; `computeDGProduction` supports scalar, matrix, and window-bank inputs.
 
-Stage05 tiny search: new pipeline runs and writes result table. Old Stage05 tiny table parity is blocked because a guarded old tiny runner has not been implemented.
+Stage05 native tiny search: default `runStage05TinySearch` now uses only native casebank, trajectory, Walker, access, FIM, and DG paths.
 
-DG: production aligned for Stage04/05 formula `lambda_worst / gamma_req`.
+## Legacy Isolation
 
-DA/DT/OpenD: interface ready only. DA/DT are Stage09 line; OpenD is Stage14 line. They are not Stage05 production aligned.
+Direct legacy helper calls were moved to `src/+ttube/+legacy`.
+
+`tests/static/test_noLegacyDependencyInCore.m` passed and guards:
+
+- `src/+ttube/+core`
+- default native Stage05 experiment files
+
+Legacy helper use remains allowed in:
+
+- `src/+ttube/+legacy`
+- `tools/migration`
+- `tests/integration`
+- `tests/regression`
+
+## Old-New Comparison
+
+No old full Stage05 runner was executed.
+
+Comparison tests use only legacy helper adapters:
+
+- access native vs legacy helper;
+- Stage04 FIM/DG native vs legacy helper on same inputs;
+- Stage05 tiny native vs legacy-helper tiny evaluation.
 
 ## Test Results
 
-Requested test set:
+Requested clean-room validation suite passed:
 
-- All listed smoke/unit/integration tests passed.
-- `tests/regression/legacy/test_legacyBaselineManifest.m` passed.
-- `tests/regression/legacy/test_stage0103GoldenArtifacts.m` exists now and reports one expected incomplete assumption because `legacy_reference/golden_small/stage01_03_minimal/manifest.json` has not been generated.
+- smoke tests;
+- existing unit primitives;
+- native Stage01/02/03/04/DG unit tests;
+- static dependency guard;
+- native and native-vs-legacy integration tests;
+- legacy manifest regression test.
+
+Expected incomplete:
+
+- `tests/regression/legacy/test_stage0103GoldenArtifacts.m` because `legacy_reference/golden_small/stage01_03_minimal/manifest.json` has not been generated.
 
 Code Analyzer:
 
-- Clean on all new/modified `.m` files from this sprint.
+- clean for new/modified `.m` files.
 
-## Blocked Or Partial Items
+## Production Aligned Vs Approximate
 
-- Old Stage05 tiny run was skipped. Blocked reason: no reviewed guard exists to prove strict case/grid/output limits before invoking legacy Stage05.
-- No legacy golden Stage01-05 artifact pack was generated.
-- Tiny smoke grid found no feasible design; the pipeline result is valid but negative for the sparse short-run configuration.
+Production/formula aligned:
 
-## File Size And Git Notes
+- Stage03 Walker-T circular propagation semantics.
+- Stage03 access geometry formula family.
+- Stage04 LOS angle-information formula family.
+- DG formula `lambda_worst / gamma_req`.
 
-- No committed file exceeds 5 MB.
-- Run outputs were kept out of Git.
+Approximate native:
+
+- Stage01 geodetic fields are pseudo-ECI, not full legacy geodetic parity.
+- Stage02 HGV trajectory is simplified point-mass, not full VTC/geodetic legacy parity.
+
+Interface ready only:
+
+- DA
+- DT
+- OpenD
+
+Not implemented:
+
+- ClosedD
+- STK
+- C++/MEX
+- GUI
+- Stage09/Stage14/Ch5 scans
+
+## File Size And Git
+
+- No file over 5 MB was added.
+- `git status` was clean after final documentation commit check.
 - No push was performed.
 
 ## Next Steps
 
-1. Add a guarded old Stage05 tiny runner that refuses to run unless case, grid, time horizon, plotting, parallelism, and output size controls are explicitly restricted.
-2. Generate a small Stage01-05 golden manifest and keep all files over 5 MB out of Git.
-3. Add numeric old-new parity checks for Stage02 position, Stage03 access masks, Stage04 lambda values, and Stage05 result table.
-4. Replace legacy adapters with native core implementations one backend at a time.
+1. Upgrade native Stage01 from pseudo-ECI to full geodetic ECEF/ECI utilities.
+2. Replace the Stage02 point-mass prototype with a native VTC-compatible dynamics implementation and tighter legacy trajectory comparisons.
+3. Add persisted small golden artifacts under size limits.
+4. Add a guarded old Stage05 tiny runner only if strict case/grid/cache controls are implemented first.

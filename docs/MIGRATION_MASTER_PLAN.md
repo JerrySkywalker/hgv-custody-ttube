@@ -768,7 +768,29 @@ See:
 - `docs/STAGE01_05_ALIGNMENT_DESIGN.md`
 - `docs/STAGE01_05_ALIGNMENT_REPORT.md`
 
-## 10. Current Recommended Next Step
+## 10. Clean-Room Stage01-05 Native Update
+
+Status: partial. The default Stage05 tiny pipeline now uses native clean-room implementations rather than legacy helper adapters.
+
+Native clean-room modules now exist for:
+
+- minimal Stage01 N01 case construction;
+- simplified Stage02 HGV point-mass trajectory prototype;
+- Stage03 Walker constellation generation and circular propagation;
+- Stage03 range/occlusion/off-nadir access geometry;
+- Stage04 LOS angle-information matrix;
+- Stage05 tiny DG search.
+
+Legacy helper calls have been isolated to `src/+ttube/+legacy`, `tools/migration`, and tests. `tests/static/test_noLegacyDependencyInCore.m` guards `src/+ttube/+core` and the default Stage05 native path against old helper dependencies.
+
+This is not full production parity. Stage01 geodetic ECEF/ECI parity and Stage02 legacy VTC dynamics parity are approximate/pending. Old full Stage05 remains unrun.
+
+See:
+
+- `docs/CLEANROOM_STAGE01_05_REIMPLEMENTATION_PLAN.md`
+- `docs/STAGE01_05_CLEANROOM_ALIGNMENT_REPORT.md`
+
+## 11. Current Recommended Next Step
 
 Batch 3 scaffold has started. The next recommended step is review:
 
