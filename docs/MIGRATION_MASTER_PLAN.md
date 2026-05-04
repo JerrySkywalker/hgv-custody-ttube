@@ -753,12 +753,28 @@ Before moving from Batch 3 to Batch 4:
 - new trajectory, constellation, and access artifacts validate
 - time/frame/unit conventions are verified
 
-## 9. Current Recommended Next Step
+## 9. Overnight Stage01-05 Alignment Update
+
+Status: partial. A new helper-level Stage01-05 tiny pipeline has been added under `ttube.experiments.stage05`. It can run N01 through legacy Stage01/02/03/04 helper adapters and evaluate a small Stage05 DG table.
+
+Production-aligned helper adapters now exist for selected Stage01 case fields, Stage02 HGV trajectory, Stage03 Walker propagation, Stage03 access geometry, Stage04 window FIM, and Stage05 DG as `lambda_worst / gamma_req`.
+
+DA, DT, and OpenD are interface-ready only. DA/DT belong to the Stage09 line, and OpenD belongs to Stage14. ClosedD remains out of scope.
+
+The old full Stage05 runner was not executed. Old-new Stage05 table comparison remains blocked until a guarded old tiny runner can prove that case, grid, plotting, cache, and parallel settings are restricted before execution.
+
+See:
+
+- `docs/STAGE01_05_ALIGNMENT_DESIGN.md`
+- `docs/STAGE01_05_ALIGNMENT_REPORT.md`
+
+## 10. Current Recommended Next Step
 
 Batch 3 scaffold has started. The next recommended step is review:
 
 - review `docs/BATCH3_LEGACY_STAGE01_03_BASELINE_PLAN.md`;
 - review and, if approved, extend the dry-run cache extractor for `stage01_03_minimal`;
-- keep Stage05/09/14 and Ch5 out of scope.
+- add a guarded old Stage05 tiny comparison runner before claiming Stage05 old-new table parity;
+- keep Stage09/14, Ch5, ClosedD, STK, and C++/MEX out of scope.
 
 Do not jump directly to Stage05/09 large scans.

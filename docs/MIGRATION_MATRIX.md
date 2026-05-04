@@ -3,6 +3,7 @@
 | 功能模块 | 旧工程可能来源 | 新工程目标模块 | 当前状态 | baseline case | 测试方式 | 风险 | 备注 |
 |---|---|---|---|---|---|---|---|
 | HGV 轨迹生成 | `stages/stage02_hgv_nominal.m`, `src/target` | `core.traj` | Batch 3 baseline extraction scaffold completed; production core 未迁移 | 单条 nominal trajectory, fixed seed/time grid | MATLAB core smoke + legacy cache comparison | 动力学、坐标系、事件终止耦合 | 已审计 Stage02 输出字段；未运行 extraction；未实现 HGV core |
+| Stage01-05 tiny alignment | Stage01-05 helper chain | `experiments.stage05` + core adapters | Overnight sprint partial: 新工程 tiny pipeline 可运行；旧 Stage05 tiny 对比 blocked | `N01`, tiny Walker grid | helper-level adapter smoke + contract tests | 旧 Stage05 runner 安全限参尚未实现 | 见 `docs/STAGE01_05_ALIGNMENT_REPORT.md` |
 | Walker 星座生成 | `src/constellation`, Stage03 helpers | `core.orbit` | Batch 3 baseline extraction scaffold completed; production core 未迁移 | `h=1000 km, i=70 deg, P=8, T=12, F=1` | state array checksum + STK ephemeris spot check | Walker 参数语义和相位约定 | 已审计 Stage03 walker/satbank 字段；未实现 Walker core |
 | 载荷/传感器模型 | `src/sensing`, Stage03 visibility | `core.sensor` | 未迁移 | range/off-nadir/occlusion tiny case | geometry unit test + STK access comparison | FOV/LOS/遮挡定义漂移 | 先做最小传感器模型 |
 | 可见性/access window | `stage03_visibility_pipeline`, `src/window` | `core.visibility` | Batch 1 primitive implemented: `extractWindowIndices`; Batch 3 baseline extraction scaffold completed | one target, two sats, short time grid | access matrix expected mask + window extraction | 时间对齐、遮挡、边界点 | 已审计 Stage03 visbank 字段；未迁移 access/visibility 算法；baseline extraction 需用户显式确认 |
