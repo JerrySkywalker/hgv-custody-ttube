@@ -1,21 +1,13 @@
 function out = runStage05TinySearch(cfg)
-%RUNSTAGE05TINYSEARCH Run a small Stage01-05 DG pipeline.
+%RUNSTAGE05TINYSEARCH Run a small native Stage01-05 DG pipeline.
 
 cfg = local_defaults(cfg);
 if ~isfolder(cfg.outputDir)
     mkdir(cfg.outputDir);
 end
-if ~isempty(cfg.runDir) && isfolder(cfg.runDir)
-    ttube.pipeline.updateRunStepStatus(cfg.runDir, 'run_new_stage01_05_pipeline', 'running', ...
-        'Running new Stage01-05 tiny DG pipeline.');
-end
-
-caseArtifact = ttube.experiments.stage05.buildStage01CasebankMinimal(struct( ...
-    'legacyRoot', cfg.legacyRoot, 'caseId', cfg.caseId, 'mode', 'legacy_function', ...
-    'legacyOverrides', cfg.legacyOverrides));
+caseArtifact = ttube.experiments.stage05.buildStage01CasebankNative(cfg.caseCfg);
 trajectory = ttube.core.traj.propagateHgvTrajectory(struct( ...
-    'legacyRoot', cfg.legacyRoot, 'caseId', cfg.caseId, 'backend', cfg.trajBackend, ...
-    'legacyOverrides', cfg.legacyOverrides));
+    'backend', 'native', 'case', caseArtifact, 'Tmax_s', cfg.Tmax_s, 'Ts_s', cfg.Ts_s));
 
 grid = ttube.experiments.stage05.buildTinySearchGrid(cfg);
 n = height(grid);
@@ -27,7 +19,7 @@ dual_ratio = nan(n, 1);
 eval_bank = cell(n, 1);
 
 for r = 1:n
-    res = ttube.experiments.stage05.evaluateWalkerDesignTiny(grid(r,:), trajectory, cfg.gamma_req, cfg);
+    res = ttube.experiments.stage05.evaluateWalkerDesignTinyNative(grid(r,:), trajectory, cfg.gamma_req, cfg);
     eval_bank{r} = res;
     lambda_worst(r) = res.lambda_worst;
     D_G(r) = res.D_G;
@@ -56,19 +48,13 @@ out.cfg = cfg;
 save(fullfile(cfg.outputDir, 'stage05_tiny_search.mat'), 'out');
 writetable(resultTable, fullfile(cfg.outputDir, 'stage05_tiny_search.csv'));
 
-if ~isempty(cfg.runDir) && isfolder(cfg.runDir)
-    ttube.pipeline.updateRunStepStatus(cfg.runDir, 'run_new_stage01_05_pipeline', 'done', ...
-        'New Stage01-05 tiny DG pipeline completed.');
-end
 end
 
 function cfg = local_defaults(cfg)
 if nargin < 1
     cfg = struct();
 end
-cfg.legacyRoot = local_field(cfg, 'legacyRoot', ttube.legacy.defaultLegacyRoot());
 cfg.caseId = local_field(cfg, 'caseId', 'N01');
-cfg.trajBackend = local_field(cfg, 'trajBackend', 'legacy_stage02');
 cfg.h_grid_km = local_field(cfg, 'h_grid_km', 1000);
 cfg.i_grid_deg = local_field(cfg, 'i_grid_deg', [60 70]);
 cfg.P_grid = local_field(cfg, 'P_grid', [2 4]);
@@ -77,14 +63,16 @@ cfg.F_fixed = local_field(cfg, 'F_fixed', 1);
 cfg.Tw_s = local_field(cfg, 'Tw_s', 30);
 cfg.window_step_s = local_field(cfg, 'window_step_s', 10);
 cfg.gamma_req = local_field(cfg, 'gamma_req', 1.0);
-cfg.outputDir = local_field(cfg, 'outputDir', fullfile(pwd, 'outputs', 'overnight_stage01_05_alignment'));
+cfg.outputDir = local_field(cfg, 'outputDir', fullfile(pwd, 'outputs', 'cleanroom_stage01_05_native'));
 cfg.runDir = local_field(cfg, 'runDir', '');
-cfg.legacyOverrides = local_field(cfg, 'legacyOverrides', struct());
-cfg.legacyOverrides.stage02 = local_merge(local_field(cfg.legacyOverrides, 'stage02', struct()), ...
-    struct('Tmax_s', 120, 'Ts_s', 2, 'make_plot', false, 'make_plot_3d', false));
+cfg.Tmax_s = local_field(cfg, 'Tmax_s', 120);
+cfg.Ts_s = local_field(cfg, 'Ts_s', 2);
+cfg.caseCfg = local_field(cfg, 'caseCfg', struct());
+cfg.caseCfg.caseId = cfg.caseId;
 cfg.stage04 = local_field(cfg, 'stage04', struct());
 cfg.stage04.Tw_s = cfg.Tw_s;
 cfg.stage04.window_step_s = cfg.window_step_s;
+cfg.sensor = local_field(cfg, 'sensor', struct());
 end
 
 function summary = local_summary(T)
@@ -100,14 +88,6 @@ if any(T.feasible)
 else
     summary.best = table();
     summary.best_Ns = NaN;
-end
-end
-
-function s = local_merge(a, b)
-s = a;
-names = fieldnames(b);
-for k = 1:numel(names)
-    s.(names{k}) = b.(names{k});
 end
 end
 
