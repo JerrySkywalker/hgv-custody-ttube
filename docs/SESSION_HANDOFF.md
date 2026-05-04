@@ -2,83 +2,137 @@
 
 ## Sprint
 
-Batch 3 Sprint: Stage01-03 legacy golden baseline extraction scaffold.
+Overnight Stage01-05 Production Alignment Sprint.
 
 ## Branch
 
-`codex/batch3-stage01-03-baseline`
+`codex/overnight-stage01-05-production-alignment`
+
+## Commits
+
+- `ba6a10e feat: add stage01-05 tiny alignment pipeline`
+- `85d1474 test: validate stage01-05 overnight alignment`
+
+No push was performed.
 
 ## Constraints Followed
 
 - Modified files only inside `C:\Dev\src\hgv-custody-ttube`.
-- Read `C:\Dev\src\hgv-custody-inversion-scheduling` only for Stage01-03 audit.
-- Did not modify `C:\Dev\src\hgv-custody-inversion-scheduling`.
-- Did not run any old project runner.
-- Ran only the new PowerShell dry-run wrapper; it printed the MATLAB command and did not launch MATLAB.
-- Did not run long experiments.
-- Did not run Stage05/09/14 or Ch5.
-- Did not implement HGV dynamics, Walker generation, real access geometry, real FIM/Gramian assembly, production DG/DA/DT, ClosedD/OpenD, STK, C++/MEX, or GUI.
-- Did not extract or commit legacy golden baseline data.
-- Did not commit large legacy outputs.
+- Treated `C:\Dev\src\hgv-custody-inversion-scheduling` as read-only.
+- Read legacy Stage01-05 helper code and default params.
+- Did not run old full Stage05.
+- Did not run Stage09, Stage14, Ch5, ClosedD, STK, or C++/MEX.
+- Ran only small new-pipeline smoke/integration tests and helper-level legacy adapter calls.
+- Did not add any file over 5 MB.
 
-## Files Added
+## Added Or Modified Files
 
-- `docs/BATCH3_LEGACY_STAGE01_03_BASELINE_PLAN.md`
-- `legacy_reference/golden_small/README.md`
-- `legacy_reference/golden_small/stage01_03_minimal/.gitkeep`
-- `legacy_reference/golden_small/stage01_03_minimal/manifest.example.json`
-- `tools/migration/legacy_paths.local.example.json`
-- `tools/migration/export_legacy_stage01_03_baseline.ps1`
-- `tools/migration/export_legacy_stage01_03_baseline.m`
-- `tools/migration/README.md`
-- `tests/regression/legacy/test_legacyBaselineManifest.m`
+Core adapters:
 
-## Files Modified
+- `src/+ttube/+core/+traj/propagateHgvTrajectory.m`
+- `src/+ttube/+core/+traj/propagateHgvTrajectory_legacyStage02.m`
+- `src/+ttube/+core/+orbit/buildWalkerConstellation.m`
+- `src/+ttube/+core/+orbit/buildWalkerConstellation_legacyStage03.m`
+- `src/+ttube/+core/+orbit/propagateWalkerConstellation.m`
+- `src/+ttube/+core/+orbit/propagateWalkerConstellation_legacyStage03.m`
+- `src/+ttube/+core/+sensor/computeAccessGeometry.m`
+- `src/+ttube/+core/+sensor/computeAccessGeometry_legacyStage03.m`
+- `src/+ttube/+core/+visibility/buildWindowGrid.m`
+- `src/+ttube/+core/+estimation/buildWindowInformationMatrix.m`
+- `src/+ttube/+core/+estimation/buildWindowInformationMatrix_legacyStage04.m`
+- `src/+ttube/+core/+metrics/calibrateGammaRequirement.m`
+- `src/+ttube/+core/+metrics/computeDGProduction.m`
+- `src/+ttube/+core/+metrics/computeDAProduction.m`
+- `src/+ttube/+core/+metrics/computeDTProduction.m`
+- `src/+ttube/+core/+metrics/computeOpenDInterface.m`
 
+Legacy helpers:
+
+- `src/+ttube/+legacy/defaultLegacyRoot.m`
+- `src/+ttube/+legacy/findLatestCache.m`
+- `src/+ttube/+legacy/finiteDifferenceVelocity.m`
+- `src/+ttube/+legacy/loadDefaultParams.m`
+- `src/+ttube/+legacy/selectCaseById.m`
+- `src/+ttube/+legacy/withLegacyPath.m`
+
+Stage05 tiny pipeline:
+
+- `src/+ttube/+experiments/+stage05/buildStage01CasebankMinimal.m`
+- `src/+ttube/+experiments/+stage05/buildTinySearchGrid.m`
+- `src/+ttube/+experiments/+stage05/evaluateWalkerDesignTiny.m`
+- `src/+ttube/+experiments/+stage05/runStage05TinySearch.m`
+
+Tests:
+
+- `tests/unit/test_metricBackendInterfaces.m`
+- `tests/integration/test_stage01CasebankMinimal.m`
+- `tests/integration/test_stage02HgvTrajectoryAdapter.m`
+- `tests/integration/test_stage03WalkerAccessAdapter.m`
+- `tests/integration/test_stage04WindowInfoGammaAdapter.m`
+- `tests/integration/test_stage04DGProductionAdapter.m`
+- `tests/integration/test_stage05TinySearchPipeline.m`
+- `tests/integration/test_stage01To05Alignment.m`
+- `tests/regression/legacy/test_stage0103GoldenArtifacts.m`
+
+Docs:
+
+- `docs/STAGE01_05_ALIGNMENT_DESIGN.md`
+- `docs/STAGE01_05_ALIGNMENT_REPORT.md`
 - `docs/MIGRATION_MASTER_PLAN.md`
 - `docs/MIGRATION_MATRIX.md`
 - `docs/SESSION_HANDOFF.md`
 
-## Implementation Summary
+## Run Directory
 
-`docs/BATCH3_LEGACY_STAGE01_03_BASELINE_PLAN.md` records the read-only Stage01-03 audit and maps legacy casebank, trajbank, satbank, and visbank fields to the new data contracts.
+`runs/overnight_stage01_05_production_alignment_20260504_164129`
 
-`legacy_reference/golden_small/stage01_03_minimal/manifest.example.json` defines the first manifest schema for a future minimal golden baseline. No generated legacy data is present.
+The run directory contains `status.json` plus small `.mat`/`.csv` smoke outputs. These were not committed.
 
-`tools/migration` contains a dry-run PowerShell wrapper and MATLAB scaffold. The wrapper defaults to printing the MATLAB command without launching MATLAB. The MATLAB scaffold is conservative: it writes only a dry-run manifest if called, refuses `AllowLegacyRun=true`, does not copy legacy outputs, and records legacy git metadata.
+## Alignment Status
 
-The audit found no Stage01-03-specific lightweight smoke runner or direct case-limit option. Stage02 and Stage03 currently operate over the full casebank and write cache/log/figure outputs. This sprint therefore did not run extraction.
+Stage01: production aligned for selected N01 case fields through `build_casebank_stage01`.
+
+Stage02 HGV dynamics: production aligned at helper-adapter level through `propagate_hgv_case_stage02`; `v_eci_kmps` is finite-difference derived because legacy helper output does not expose full ECI velocity.
+
+Stage03 Walker propagator: production aligned at helper-adapter level through `build_single_layer_walker_stage03` and `propagate_constellation_stage03`; constellation velocity is finite-difference derived.
+
+Stage03 real access geometry: production aligned at helper-adapter level through `compute_visibility_matrix_stage03`.
+
+Stage04 window/FIM/gamma: production aligned at helper-adapter level for window FIM through `build_window_info_matrix_stage04`; gamma interface supports fixed and quantile modes.
+
+Stage05 tiny search: new pipeline runs and writes result table. Old Stage05 tiny table parity is blocked because a guarded old tiny runner has not been implemented.
+
+DG: production aligned for Stage04/05 formula `lambda_worst / gamma_req`.
+
+DA/DT/OpenD: interface ready only. DA/DT are Stage09 line; OpenD is Stage14 line. They are not Stage05 production aligned.
 
 ## Test Results
 
-Validation:
+Requested test set:
 
-- `manifest.example.json` parsed successfully with PowerShell `ConvertFrom-Json`.
-- `tools/migration/legacy_paths.local.example.json` parsed successfully with PowerShell `ConvertFrom-Json`.
-- `tools/migration/export_legacy_stage01_03_baseline.ps1` dry-run completed without launching MATLAB.
-- `tests/regression/legacy/test_legacyBaselineManifest.m`: 3 passed, 0 failed.
-- Code Analyzer on `tools/migration/export_legacy_stage01_03_baseline.m`: no issues.
-- Code Analyzer on `tests/regression/legacy/test_legacyBaselineManifest.m`: no issues.
+- All listed smoke/unit/integration tests passed.
+- `tests/regression/legacy/test_legacyBaselineManifest.m` passed.
+- `tests/regression/legacy/test_stage0103GoldenArtifacts.m` exists now and reports one expected incomplete assumption because `legacy_reference/golden_small/stage01_03_minimal/manifest.json` has not been generated.
 
-## Commits
+Code Analyzer:
 
-- `docs: plan stage01-03 legacy baseline extraction`
-- `chore: scaffold legacy golden baseline manifest`
-- `docs: record batch3 baseline scaffold`
-- `tools: add dry-run legacy baseline extraction scaffold`
-- `test: validate legacy baseline manifest schema`
-- `docs: record batch3 baseline scaffold status`
+- Clean on all new/modified `.m` files from this sprint.
 
-## Remaining Issues
+## Blocked Or Partial Items
 
-- Actual `stage01_03_minimal` extraction has not been run.
-- A safe read-only cache extractor still needs review before any real extraction run.
-- Stage02 trajectory contract requires a decision for `v_eci_kmps`; the legacy audit found scalar `v_mps` but not full ECI velocity vectors in `traj`.
-- Stage03 constellation contract requires a decision for `v_eci_kmps`; legacy `satbank` exposes positions but not velocities.
-- Files over 5 MB must remain out of Git.
+- Old Stage05 tiny run was skipped. Blocked reason: no reviewed guard exists to prove strict case/grid/output limits before invoking legacy Stage05.
+- No legacy golden Stage01-05 artifact pack was generated.
+- Tiny smoke grid found no feasible design; the pipeline result is valid but negative for the sparse short-run configuration.
 
-## Next Recommended Work
+## File Size And Git Notes
 
-1. Review `docs/BATCH3_LEGACY_STAGE01_03_BASELINE_PLAN.md`.
-2. Review `tools/migration/export_legacy_stage01_03_baseline.m` and decide whether to extend it from dry-run manifest generation to one-case cache filtering.
-3. Keep Stage05/09/14, Ch5, and production core migrations out of the next scaffold step.
+- No committed file exceeds 5 MB.
+- Run outputs were kept out of Git.
+- No push was performed.
+
+## Next Steps
+
+1. Add a guarded old Stage05 tiny runner that refuses to run unless case, grid, time horizon, plotting, parallelism, and output size controls are explicitly restricted.
+2. Generate a small Stage01-05 golden manifest and keep all files over 5 MB out of Git.
+3. Add numeric old-new parity checks for Stage02 position, Stage03 access masks, Stage04 lambda values, and Stage05 result table.
+4. Replace legacy adapters with native core implementations one backend at a time.
