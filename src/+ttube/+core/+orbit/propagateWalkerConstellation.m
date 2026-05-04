@@ -9,8 +9,10 @@ if isfield(cfg, 'backend')
     backend = char(string(cfg.backend));
 end
 switch backend
+    case 'native'
+        artifact = ttube.core.orbit.propagateWalkerConstellationNative(walker, t_s, cfg);
     case 'legacy_stage03'
-        artifact = ttube.core.orbit.propagateWalkerConstellation_legacyStage03(walker, t_s, cfg);
+        artifact = ttube.legacy.propagateWalkerConstellationLegacyStage03(walker, t_s, cfg);
     otherwise
         error('ttube:orbit:BackendNotImplemented', ...
             'Unsupported Walker propagation backend: %s', backend);

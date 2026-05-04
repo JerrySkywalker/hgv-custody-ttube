@@ -3,8 +3,10 @@ function walker = buildWalkerConstellation(cfg)
 
 backend = local_backend(cfg);
 switch backend
+    case 'native'
+        walker = ttube.core.orbit.buildWalkerConstellationNative(cfg);
     case 'legacy_stage03'
-        walker = ttube.core.orbit.buildWalkerConstellation_legacyStage03(cfg);
+        walker = ttube.legacy.buildWalkerConstellationLegacyStage03(cfg);
     otherwise
         error('ttube:orbit:BackendNotImplemented', ...
             'Unsupported Walker builder backend: %s', backend);
@@ -17,6 +19,6 @@ if isfield(cfg, 'backend')
 elseif isfield(cfg, 'orbitBackend')
     backend = char(string(cfg.orbitBackend));
 else
-    backend = 'legacy_stage03';
+    backend = 'native';
 end
 end
