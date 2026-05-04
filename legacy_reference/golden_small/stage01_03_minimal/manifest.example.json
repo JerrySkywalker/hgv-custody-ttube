@@ -1,0 +1,21 @@
+{
+  "schema_version": "legacy_baseline_manifest.v0",
+  "baseline_id": "stage01_03_minimal",
+  "legacy_repo": "C:/Dev/src/hgv-custody-inversion-scheduling",
+  "legacy_branch": "cpt5-oldStable",
+  "legacy_commit": "<fill-at-runtime>",
+  "created_utc": "<fill-at-runtime>",
+  "matlab_version": "<fill-at-runtime>",
+  "stages": [
+    "stage01",
+    "stage02",
+    "stage03"
+  ],
+  "artifacts": {
+    "stage01_casebank": "",
+    "stage02_trajbank": "",
+    "stage03_satbank": "",
+    "stage03_visbank": ""
+  },
+  "notes": "Small legacy baseline for Stage01-03. Large files should not be committed."
+}
