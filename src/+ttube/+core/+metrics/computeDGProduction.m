@@ -29,8 +29,11 @@ result.production_alignment = 'stage04_05_lambda_min_over_gamma_req';
 end
 
 function lambda = local_lambda_from_info(info)
-assert(isnumeric(info) && ndims(info) == 3 && size(info,1) == size(info,2), ...
+assert(isnumeric(info) && (ismatrix(info) || ndims(info) == 3) && size(info,1) == size(info,2), ...
     'ttube:metrics:InvalidMetricInput', 'info_matrix must be Nx-by-Nx-by-Nw.');
+if ismatrix(info)
+    info = reshape(info, size(info,1), size(info,2), 1);
+end
 nw = size(info, 3);
 lambda = zeros(nw, 1);
 for k = 1:nw
