@@ -21,6 +21,9 @@ cfg.useParallel = false;
 cfg.stage05Baseline = local_field(input, 'stage05Baseline', []);
 cfg.caseCfg = local_field(input, 'caseCfg', struct());
 cfg.caseCfg.caseId = cfg.caseId;
+cfg.stage04 = local_field(input, 'stage04', struct());
+cfg.stage04.Tw_s = cfg.Tw_s;
+cfg.stage04.window_step_s = cfg.window_step_s;
 ttube.experiments.stage06.validateStage06Config(cfg);
 end
 
