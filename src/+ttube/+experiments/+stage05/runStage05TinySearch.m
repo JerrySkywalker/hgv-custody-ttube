@@ -7,7 +7,7 @@ if ~isfolder(cfg.outputDir)
 end
 caseArtifact = ttube.experiments.stage05.buildStage01CasebankNative(cfg.caseCfg);
 trajectory = ttube.core.traj.propagateHgvTrajectory(struct( ...
-    'backend', 'native', 'case', caseArtifact, 'Tmax_s', cfg.Tmax_s, 'Ts_s', cfg.Ts_s));
+    'backend', cfg.trajectoryBackend, 'case', caseArtifact, 'Tmax_s', cfg.Tmax_s, 'Ts_s', cfg.Ts_s));
 
 grid = ttube.experiments.stage05.buildTinySearchGrid(cfg);
 n = height(grid);
@@ -67,6 +67,7 @@ cfg.outputDir = local_field(cfg, 'outputDir', fullfile(pwd, 'outputs', 'cleanroo
 cfg.runDir = local_field(cfg, 'runDir', '');
 cfg.Tmax_s = local_field(cfg, 'Tmax_s', 120);
 cfg.Ts_s = local_field(cfg, 'Ts_s', 2);
+cfg.trajectoryBackend = local_field(cfg, 'trajectoryBackend', 'native_vtc');
 cfg.caseCfg = local_field(cfg, 'caseCfg', struct());
 cfg.caseCfg.caseId = cfg.caseId;
 cfg.stage04 = local_field(cfg, 'stage04', struct());

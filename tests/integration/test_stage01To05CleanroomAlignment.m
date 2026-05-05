@@ -20,6 +20,7 @@ out = ttube.experiments.stage05.runStage05TinySearch(struct( ...
     'require_earth_occlusion_check', false, 'enable_offnadir_constraint', false)));
 verifyEqual(testCase, out.case.case_id, 'N01');
 verifyTrue(testCase, ttube.core.traj.validateTrajectoryArtifact(out.trajectory));
+verifyEqual(testCase, out.trajectory.backend, 'native_vtc');
 verifyEqual(testCase, height(out.result_table), 8);
 verifyTrue(testCase, all(isfinite(out.result_table.lambda_worst)));
 verifyTrue(testCase, all(isfinite(out.result_table.D_G)));
