@@ -1,0 +1,23 @@
+function ok = validateStage05Config(cfg)
+%VALIDATESTAGE05CONFIG Validate Stage05 native config and grid guard.
+
+required = {'caseId','trajectoryBackend','h_grid_km','i_grid_deg','P_grid','T_grid','F_fixed', ...
+    'Tw_s','window_step_s','gamma_req','Tmax_s','Ts_s','outputDir','saveOutputs', ...
+    'makePlots','useParallel','maxDesignsGuard'};
+for k = 1:numel(required)
+    assert(isfield(cfg, required{k}), 'ttube:stage05:InvalidConfig', ...
+        'Missing Stage05 config field: %s', required{k});
+end
+nDesign = numel(cfg.h_grid_km) * numel(cfg.i_grid_deg) * numel(cfg.P_grid) * numel(cfg.T_grid) * numel(cfg.F_fixed);
+if nDesign > cfg.maxDesignsGuard
+    error('ttube:stage05:GridTooLarge', ...
+        'Stage05 grid has %d designs, exceeding maxDesignsGuard=%d.', nDesign, cfg.maxDesignsGuard);
+end
+assert(cfg.Ts_s > 0 && cfg.Tmax_s >= cfg.Ts_s, 'ttube:stage05:InvalidConfig', ...
+    'Invalid Stage05 time grid.');
+assert(cfg.Tw_s > 0 && cfg.window_step_s > 0, 'ttube:stage05:InvalidConfig', ...
+    'Invalid Stage05 window config.');
+assert(~cfg.useParallel, 'ttube:stage05:InvalidConfig', ...
+    'Native Stage05 full reimplementation currently keeps useParallel=false.');
+ok = true;
+end
