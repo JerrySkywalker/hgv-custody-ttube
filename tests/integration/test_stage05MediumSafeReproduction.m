@@ -8,7 +8,7 @@ addpath(repoRoot); startup('force', true);
 end
 
 function testMediumSafeNative(testCase)
-outDir = tempname; cleanup = onCleanup(@() local_rm(outDir)); %#ok<NASGU>
+outDir = tempname; cleanup = onCleanup(@() local_rm(outDir));
 tStart = tic;
 b = ttube.experiments.stage05.runStage05FullNative(struct('profile','medium_safe', ...
     'outputDir',outDir,'saveOutputs',true,'makePlots',true,'Tmax_s',80, ...

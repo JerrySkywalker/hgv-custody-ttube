@@ -26,7 +26,7 @@ verifyEqual(testCase, out.backend, 'native');
 verifyEqual(testCase, out.trajectoryBackend, 'native_vtc');
 verifyTrue(testCase, ismember('design_id', out.result_table.Properties.VariableNames));
 verifyTrue(testCase, islogical(out.result_table.feasible));
-verifyTrue(testCase, isfile(fullfile(outDir, 'stage05_tiny_search.mat')));
+verifyTrue(testCase, isfile(fullfile(outDir, 'stage05_search_result.mat')));
 end
 
 function testPointMassAndVtcBackendOptions(testCase)
