@@ -1,59 +1,12 @@
 function out = runStage05TinySearch(cfg)
-%RUNSTAGE05TINYSEARCH Run a small native Stage01-05 DG pipeline.
+%RUNSTAGE05TINYSEARCH Backward-compatible tiny wrapper for nominal search.
 
-cfg = local_defaults(cfg);
-if ~isfolder(cfg.outputDir)
-    mkdir(cfg.outputDir);
+if nargin < 1
+    cfg = struct();
 end
-caseArtifact = ttube.experiments.stage05.buildStage01CasebankNative(cfg.caseCfg);
-trajectory = ttube.core.traj.propagateHgvTrajectory(struct( ...
-    'backend', cfg.trajectoryBackend, 'case', caseArtifact, 'Tmax_s', cfg.Tmax_s, 'Ts_s', cfg.Ts_s));
-
-grid = ttube.experiments.stage05.buildTinySearchGrid(cfg);
-n = height(grid);
-lambda_worst = nan(n, 1);
-D_G = nan(n, 1);
-feasible = false(n, 1);
-mean_visible = nan(n, 1);
-dual_ratio = nan(n, 1);
-eval_bank = cell(n, 1);
-
-for r = 1:n
-    res = ttube.experiments.stage05.evaluateWalkerDesignTinyNative(grid(r,:), trajectory, cfg.gamma_req, cfg);
-    eval_bank{r} = res;
-    lambda_worst(r) = res.lambda_worst;
-    D_G(r) = res.D_G;
-    feasible(r) = res.feasible;
-    mean_visible(r) = res.num_visible_mean;
-    dual_ratio(r) = res.dual_ratio;
-end
-
-resultTable = grid;
-resultTable.lambda_worst = lambda_worst;
-resultTable.D_G = D_G;
-resultTable.feasible = feasible;
-resultTable.mean_visible = mean_visible;
-resultTable.dual_ratio = dual_ratio;
-resultTable.gamma_req(:) = cfg.gamma_req;
-resultTable = ttube.experiments.stage05.normalizeStage05ResultTable(resultTable, ...
-    struct('backend', 'native', 'notes', ['trajectoryBackend=' char(string(cfg.trajectoryBackend))]));
-
-out = struct();
+cfg.saveEvalBank = true;
+out = ttube.experiments.stage05.runStage05NominalSearch(cfg);
 out.schema_version = 'stage05_result_table.v0';
-out.backend = 'native';
-out.trajectoryBackend = cfg.trajectoryBackend;
-out.case = caseArtifact;
-out.trajectory = trajectory;
-out.result_table = resultTable;
-out.eval_bank = eval_bank;
-out.summary = local_summary(resultTable);
-out.cfg = cfg;
-out.created_utc = char(datetime('now','TimeZone','UTC','Format',"yyyy-MM-dd'T'HH:mm:ss"));
-out.producer = 'ttube.experiments.stage05.runStage05TinySearch';
-
-save(fullfile(cfg.outputDir, 'stage05_tiny_search.mat'), 'out');
-writetable(resultTable, fullfile(cfg.outputDir, 'stage05_tiny_search.csv'));
-
 end
 
 function cfg = local_defaults(cfg)
