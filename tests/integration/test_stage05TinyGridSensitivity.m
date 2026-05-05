@@ -1,0 +1,32 @@
+function tests = test_stage05TinyGridSensitivity
+tests = functiontests(localfunctions);
+end
+
+function setupOnce(~)
+repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
+addpath(repoRoot);
+startup('force', true);
+end
+
+function testNativeSensitivityGrid(testCase)
+outDir = tempname;
+cleanupObj = onCleanup(@() local_remove_dir(outDir));
+out = ttube.experiments.stage05.runStage05TinySearch(struct( ...
+    'outputDir', outDir, 'caseId', 'N01', ...
+    'h_grid_km', [800 1000], 'i_grid_deg', [50 60 70], ...
+    'P_grid', [2 4], 'T_grid', [2 3 4], 'F_fixed', 1, ...
+    'Tw_s', 30, 'window_step_s', 10, 'Tmax_s', 80, 'Ts_s', 5, ...
+    'trajectoryBackend', 'native_vtc', 'gamma_req', 1.0, ...
+    'sensor', struct('max_range_km', 10000, ...
+    'require_earth_occlusion_check', false, 'enable_offnadir_constraint', false)));
+verifyEqual(testCase, height(out.result_table), 36);
+verifyTrue(testCase, all(isfinite(out.result_table.D_G)));
+verifyGreaterThanOrEqual(testCase, sum(out.result_table.feasible), 0);
+verifyTrue(testCase, isfield(out.summary, 'best_Ns'));
+end
+
+function local_remove_dir(pathToRemove)
+if isfolder(pathToRemove)
+    rmdir(pathToRemove, 's');
+end
+end
