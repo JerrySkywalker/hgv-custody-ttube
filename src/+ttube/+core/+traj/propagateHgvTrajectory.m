@@ -3,8 +3,10 @@ function artifact = propagateHgvTrajectory(cfg)
 
 backend = local_get_backend(cfg);
 switch backend
-    case 'native'
+    case {'native','native_point_mass','point_mass'}
         artifact = ttube.core.traj.propagateHgvTrajectoryNative(cfg);
+    case 'native_vtc'
+        artifact = ttube.core.traj.propagateHgvTrajectoryNativeVtc(cfg);
     case 'legacy_stage02'
         artifact = ttube.legacy.propagateHgvTrajectoryLegacyStage02(cfg);
     case 'cache'
