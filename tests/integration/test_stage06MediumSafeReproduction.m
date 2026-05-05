@@ -2,7 +2,7 @@ function tests = test_stage06MediumSafeReproduction
 tests = functiontests(localfunctions);
 end
 
-function setupOnce(testCase)
+function setupOnce(~)
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(repoRoot); startup('force', true);
 end
