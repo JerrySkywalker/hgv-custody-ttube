@@ -265,3 +265,51 @@ Still partial/out of scope:
 - STK, C++/MEX, GUI.
 
 Next recommendation: proceed to Stage05 small-scale formal reproduction using native_vtc and normalized result tables, while separately tightening Stage02 event parity.
+
+## Stage05 Hardening + Stage06 Heading-Family Migration Sprint Update
+
+Branch: `codex/stage06-heading-family-native`
+
+Run directory: `runs/stage06_heading_family_native_20260505_115824`
+
+Old full Stage06 runner: not run.
+
+New commits:
+
+- `1243a96 docs: plan stage06 heading-family migration`
+- `bb85c12 feat: add stage05 acceptance gate`
+- `aecc685 feat: add stage06 config and artifact contracts`
+- `7b32ad2 feat: implement native stage06 heading family generation`
+- `1a56d35 feat: implement native stage06 heading search`
+- `8119ece feat: add stage06 native plot bundle`
+- `fd8ea8b feat: add full native stage06 pipeline`
+- `34ba1d7 test: add guarded stage06 legacy parity oracle`
+- `08dac61 test: run stage06 medium-safe native reproduction`
+- `3aefca4 test: validate full native stage06 suite`
+
+Stage05 acceptance gate: implemented and validated. Profiles include `smoke`, `tiny`, `medium_safe`, and `golden_safe`.
+
+Stage06.1 define_heading_scope: native implementation complete.
+
+Stage06.2 heading family generation: native implementation complete; heading cases and VTC trajectory bank are deterministic and validated.
+
+Stage06.3 heading search: native robust search complete for guarded tiny/medium-safe grids.
+
+Stage06.4 compare_with_stage05: native comparison artifact complete.
+
+Stage06.5 plot_heading_results: native plot bundle complete at render-smoke level.
+
+Legacy Stage06 oracle: strict guard implemented. Numeric legacy oracle is blocked because no safe standalone old Stage06 helper evaluator was confirmed; the old full Stage06 chain is prohibited.
+
+Medium-safe reproduction: passed with 3 heading offsets and 36 designs.
+
+Validation: requested Stage05/Stage06 suite passed 33 tests, 0 failed, 0 incomplete. Code Analyzer clean after fixing one unused test argument.
+
+Completion judgment: yes for native Stage06 module migration over safe profiles; partial for old-new numeric parity.
+
+Next steps:
+
+1. Locate or extract a safe standalone old Stage06 evaluator if legacy numeric parity is required.
+2. Add Stage05/06 golden artifacts under the 5 MB Git limit.
+3. Continue Stage02 event parity before expanding heading-family production claims.
+4. Start Stage07 critical geometry or Stage08 window selection migration.

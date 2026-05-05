@@ -50,3 +50,20 @@ This sprint does not run the old full Stage06 runner, old full Stage05 runner, S
 ## Completion Standard
 
 Completion requires a native Stage05 acceptance gate, native Stage06 heading scope/family/search/comparison/plot modules, guarded helper-level Stage06 oracle tests, tiny and medium-safe native reproductions, documentation updates, and a push of `codex/stage06-heading-family-native`.
+
+## Completion Update
+
+Implemented:
+
+- Stage05 acceptance gate with `smoke`, `tiny`, `medium_safe`, and `golden_safe` profiles.
+- Stage06.1 native heading scope.
+- Stage06.2 native heading family and trajectory bank.
+- Stage06.3 native robust heading-family Walker search.
+- Stage06.4 native Stage05-vs-Stage06 comparison artifact.
+- Stage06.5 native plot bundle.
+- Stage06 full native wrapper.
+- Guarded Stage06 legacy oracle facade with blocked diagnostic.
+
+Validation: requested Stage05/Stage06 suite passed 33 tests, 0 failed, 0 incomplete. Code Analyzer was clean after fixing one unused test argument.
+
+Completion judgment: yes for native Stage06 module migration over safe profiles; partial for legacy numeric parity because no safe standalone old Stage06 helper oracle was confirmed and the old full Stage06 runner was intentionally not executed.

@@ -236,6 +236,8 @@ Target modules:
 - `ttube.experiments.ch4.familyRobustnessStudy`
 - `ttube.core.metrics`
 
+2026-05-05 update: Stage06 has a native heading-family implementation in `ttube.experiments.stage06` and `ttube.viz.stage06`. It covers heading scope, heading-family case generation, native VTC heading trajectory bank, robust heading Walker search, Stage05-vs-Stage06 comparison, and plot bundle export for guarded tiny and medium-safe grids. The old full Stage06 runner was not run. A guarded legacy oracle facade exists, but numeric legacy parity is blocked until a safe standalone old Stage06 helper evaluator is confirmed.
+
 ### Stage07: Critical geometry and reference Walker
 
 Old purpose:
