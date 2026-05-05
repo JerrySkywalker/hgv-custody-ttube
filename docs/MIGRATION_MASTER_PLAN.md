@@ -27,6 +27,8 @@ The new repository is the engineering reconstruction:
 C:\Dev\src\hgv-custody-ttube
 ```
 
+2026-05-05 Stage00-05 E2E update: a native Stage00-05 runner now chains bootstrap, casebank, trajectory bank, access bundle, window/gamma bundle, and Stage05 search bundle. It emits a manifest and validation report for smoke, tiny, and medium_safe profiles. The runner verifies the main old Stage00-05 task outputs without reproducing old cache side effects, large FIM/winbank dumps, or pixel-identical figures.
+
 ## 2. Terminology
 
 | Chinese | English | Meaning |

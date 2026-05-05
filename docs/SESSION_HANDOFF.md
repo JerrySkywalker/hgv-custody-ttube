@@ -313,3 +313,38 @@ Next steps:
 2. Add Stage05/06 golden artifacts under the 5 MB Git limit.
 3. Continue Stage02 event parity before expanding heading-family production claims.
 4. Start Stage07 critical geometry or Stage08 window selection migration.
+
+## Stage00-05 Native E2E Verification Sprint Update
+
+Branch: `codex/stage00-05-e2e-verification`
+
+Run directory: `runs/stage00_05_e2e_verification_20260505_131957`
+
+New commits:
+
+- `5a6a390 docs: define stage00-05 e2e output contract`
+- `7e34b77 feat: add native stage00 bootstrap artifact`
+- `e39d05a feat: add native stage01 casebank bundle`
+- `6f39b93 feat: add native stage02 trajbank bundle`
+- `e89d4a3 feat: add native stage03 access bundle`
+- `bcba9ba feat: add native stage04 window gamma bundle`
+- `5a18735 feat: connect stage05 pipeline to stage04 bundle`
+- `1d2af0e feat: add native stage00-05 e2e runner`
+- `5afadad test: validate native stage00-05 output completeness`
+- `6257700 docs: add stage00-05 task coverage matrix`
+
+Stage00 status: covered by `stage00_bootstrap.v0`.
+
+Stage01 status: covered by `stage01_casebank_bundle.v0` with nominal, heading, and critical families.
+
+Stage02 status: covered by `stage02_trajbank_bundle.v0` using `native_vtc`.
+
+Stage03 status: covered by `stage03_access_bundle.v0` with Walker/constellation and nominal/heading/critical access banks.
+
+Stage04 status: covered by `stage04_window_gamma_bundle.v0` with gamma metadata, worst-window summaries, and controlled metrics subset. Full large winbank/FIM cache replication is intentionally not done.
+
+Stage05 status: covered by `stage05_search_bundle.v0` connected to Stage04 gamma/window settings.
+
+Validation: requested Stage00-05 E2E suite passed 21 tests, 0 failed, 0 incomplete. Code Analyzer clean for checked new/modified files.
+
+Conclusion: yes for native E2E support of the main Stage00-05 task outputs; partial for exact old cache side effects, large matrix dumps, and pixel-level figure reproduction.
