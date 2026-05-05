@@ -102,3 +102,12 @@ Current judgment:
 
 - Stage01: production parity for N01 fields exercised by the tiny native pipeline.
 - Stage02: improved partial, because the native model is still spherical ECI point-mass rather than exact legacy VTC state propagation.
+
+## Native VTC Follow-Up
+
+The next sprint added a direct VTC-state backend. Stage02 now has two native trajectory backends:
+
+- `native_point_mass` / `native`: spherical ECI point-mass prototype retained for comparison.
+- `native_vtc`: VTC-state parity candidate propagating `[v, theta, sigma, phi, lambda, r]`.
+
+`native_vtc` is now the default Stage05 tiny trajectory backend, but Stage02 remains partial rather than full production parity until task-capture event parity and broader legacy case/grid comparisons are complete.

@@ -104,3 +104,25 @@ Large curve differences in altitude, speed, or displacement must be reported as 
 ## Out Of Scope
 
 No full legacy Stage05, Stage09, Stage14, Ch5, ClosedD, STK, C++/MEX, GUI, or large-scan work is performed in this sprint.
+
+## Completion Notes
+
+Implemented:
+
+- `docs/VTC_STATE_CONTRACT.md`
+- `validateVtcStateSeries`
+- `hgvDynamicsVtc`
+- `vtcStateToEcef`
+- `vtcStateToTrajectoryArtifact`
+- `propagateHgvTrajectoryNativeVtc`
+- backend dispatch for `native_vtc`
+- Stage05 tiny `trajectoryBackend` option with default `native_vtc`
+
+Validation:
+
+- requested regression suite passed 34 tests, 0 failed, 0 incomplete;
+- static clean-room guard passed;
+- Code Analyzer was clean for all new/modified MATLAB files checked in this sprint;
+- no old full Stage05, Stage09, Stage14, or Ch5 scans were run.
+
+Current judgment: `native_vtc` is the Stage02 parity candidate and the default Stage05 tiny trajectory backend. It is still partial, not full production parity, because native task-capture event parity and broader case/grid validation remain pending.

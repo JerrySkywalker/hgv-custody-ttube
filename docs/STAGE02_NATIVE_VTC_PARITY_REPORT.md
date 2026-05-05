@@ -8,6 +8,8 @@ Status: parity candidate, still partial until broader trajectory grids and event
 
 Implemented backend: `native_vtc`
 
+Default Stage05 tiny trajectory backend: `native_vtc`
+
 Comparison oracle: read-only legacy Stage02 through `src/+ttube/+legacy` adapter in integration tests.
 
 ## Current Comparison
@@ -34,6 +36,8 @@ Current tolerance policy:
 - max speed magnitude error `< 0.8 km/s`;
 - max displacement magnitude error `< 60 km`.
 
+The current test passed under this policy.
+
 ## Interpretation
 
 The native backend now propagates the same VTC state family `[v, theta, sigma, phi, lambda, r]` rather than the previous ECI point-mass state. This materially improves Stage02 alignment and creates a production parity candidate.
@@ -48,3 +52,12 @@ Remaining partial status is due to:
 - comparison presently limited to N01 and a short time window.
 
 No legacy helper is called from native core.
+
+## Stage05 Tiny Impact
+
+`ttube.experiments.stage05.runStage05TinySearch` now accepts `cfg.trajectoryBackend`:
+
+- `native_vtc`
+- `native_point_mass`
+
+The default is `native_vtc`. Stage05 tiny regression passed with `native_vtc`, and a backend-option test confirms point-mass and VTC runs produce the same tiny-grid row count and finite DG values.

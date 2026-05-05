@@ -46,7 +46,7 @@ Validation suite:
 | Stage | Status | Notes |
 |---|---|---|
 | Stage01 | native geodetic parity for N01 | Uses WGS84 geodetic/ECEF, spherical direct geodesic, ENU heading, and simple GMST ECI rotation. N01 comparison against legacy helper passes strict tolerance. |
-| Stage02 | improved partial native | Uses geodetic/ECI initial state and VTC-inspired control/aero/atmosphere modules with spherical ECI point-mass dynamics. Coarse N01 magnitude comparison passes; not full legacy VTC curve parity. |
+| Stage02 | VTC parity candidate, partial | Adds `native_vtc` backend with direct `[v, theta, sigma, phi, lambda, r]` propagation. N01 short-window comparison passes documented tolerances; task-capture event and broader grid parity remain pending. |
 | Stage03 Walker | native aligned | Reimplements legacy Walker-T circular semantics. |
 | Stage03 access | native aligned for formula | Implements range, Earth occlusion, and off-nadir checks independently. |
 | Stage04 FIM | native aligned for formula | Reimplements LOS angle-information accumulation. |
@@ -78,4 +78,12 @@ Validation summary for this sprint selection: 24 passed, 0 failed, 0 incomplete.
 
 Stage01 judgment: production parity for the N01 geodetic/ECEF/ECI fields exercised by the tiny pipeline.
 
-Stage02 judgment: improved partial. It no longer uses flat pseudo-ECI or inline placeholder aero/control, but it is still a native spherical point-mass model rather than the exact legacy VTC state propagation.
+Stage02 judgment: improved partial. It now includes a direct native VTC-state backend and no longer relies on the spherical ECI point-mass prototype as the Stage05 tiny default. It is still not full production parity because task-capture event parity and broader case/grid comparisons remain pending.
+
+## Stage02 Native VTC Parity Update
+
+Run: `runs/stage02_native_vtc_parity_20260505_014722`
+
+`native_vtc` is now the default trajectory backend for Stage05 tiny search. `native_point_mass` remains available as a backend option.
+
+Validation summary for this sprint selection: 34 passed, 0 failed, 0 incomplete.

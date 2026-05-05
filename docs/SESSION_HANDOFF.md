@@ -157,7 +157,33 @@ No push was performed. Run artifacts remain ignored under `runs/`.
 
 ## Next Steps
 
-1. Tighten Stage02 VTC curve parity, including sigma/lat/lon/r state behavior and legacy event termination.
-2. Use the improved Stage01/02 native inputs for Stage04/05 tiny result-table parity.
-3. Add persisted Stage01-03 golden artifacts under size limits.
-4. Add a guarded old Stage05 tiny runner only if strict case/grid/cache controls are implemented first.
+## Stage02 Native VTC Parity Sprint Update
+
+Run directory: `runs/stage02_native_vtc_parity_20260505_014722`
+
+New commits:
+
+- `0ff8307 docs: plan native vtc stage02 parity`
+- `3e17ea7 feat: add vtc state contract`
+- `e0edf0f feat: implement native vtc dynamics kernel`
+- `c69bb02 feat: add native vtc trajectory backend`
+- `4c012ee test: compare native vtc trajectory with legacy stage02`
+- `297fbac feat: route stage05 tiny search through native vtc backend`
+
+Stage02 status: `native_vtc` is implemented and is now the Stage02 parity candidate. It propagates the VTC state `[v, theta, sigma, phi, lambda, r]`, uses native control/aero/atmosphere modules, converts to `trajectory.v0`, and passes N01 short-window comparison against the read-only legacy Stage02 adapter.
+
+Default backend status: Stage05 tiny search now defaults to `trajectoryBackend = 'native_vtc'`. `native_point_mass` remains available and was not deleted.
+
+Parity judgment: partial. The current N01 comparison passes documented tolerances, but full production parity is not claimed because task-capture event behavior, `ode45`/RK4 solver differences, finite-difference ECI velocity, and broader case/grid validation remain.
+
+Validation: requested Stage02 native VTC regression suite passed 34 tests, 0 failed, 0 incomplete. Static guard passed. Code Analyzer was clean for all new/modified MATLAB files checked.
+
+No push was performed. No large artifact was added.
+
+## Next Steps
+
+1. Tighten Stage02 native VTC parity for event termination, especially task-capture radius behavior.
+2. Expand native_vtc vs legacy comparison beyond N01 and the short validation window.
+3. Use `native_vtc` for Stage04/05 tiny result-table parity.
+4. Add persisted Stage01-03 golden artifacts under size limits.
+5. Add a guarded old Stage05 tiny runner only if strict case/grid/cache controls are implemented first.
