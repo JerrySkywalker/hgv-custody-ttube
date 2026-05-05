@@ -35,15 +35,21 @@ resultTable.feasible = feasible;
 resultTable.mean_visible = mean_visible;
 resultTable.dual_ratio = dual_ratio;
 resultTable.gamma_req(:) = cfg.gamma_req;
+resultTable = ttube.experiments.stage05.normalizeStage05ResultTable(resultTable, ...
+    struct('backend', 'native', 'notes', ['trajectoryBackend=' char(string(cfg.trajectoryBackend))]));
 
 out = struct();
-out.schema_version = 'stage05_tiny_search.v0';
+out.schema_version = 'stage05_result_table.v0';
+out.backend = 'native';
+out.trajectoryBackend = cfg.trajectoryBackend;
 out.case = caseArtifact;
 out.trajectory = trajectory;
 out.result_table = resultTable;
 out.eval_bank = eval_bank;
 out.summary = local_summary(resultTable);
 out.cfg = cfg;
+out.created_utc = char(datetime('now','TimeZone','UTC','Format',"yyyy-MM-dd'T'HH:mm:ss"));
+out.producer = 'ttube.experiments.stage05.runStage05TinySearch';
 
 save(fullfile(cfg.outputDir, 'stage05_tiny_search.mat'), 'out');
 writetable(resultTable, fullfile(cfg.outputDir, 'stage05_tiny_search.csv'));
