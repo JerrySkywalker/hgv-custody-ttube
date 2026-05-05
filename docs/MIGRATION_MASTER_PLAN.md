@@ -822,3 +822,23 @@ After this Stage01/02 parity sprint, the practical next step is either:
 - proceed to Stage04/05 tiny result-table parity using the improved Stage01/02 native inputs.
 
 Do not jump directly to Stage05/09 large scans.
+
+## 13. Stage04-05 Result-Table Parity Update
+
+Status: Stage05 tiny result-table parity complete against the guarded helper-level oracle.
+
+The old full Stage05 runner was not executed. A guarded oracle under `src/+ttube/+legacy` rejects unsafe grids, plotting, figure saving, parallel execution, and any full-runner request. Native Stage05 tiny now emits normalized `stage05_result_table.v0` tables and defaults to `trajectoryBackend = native_vtc`.
+
+Validation summary:
+
+- result table contract/unit tests passed;
+- guarded legacy oracle tests passed;
+- native-vs-legacy Stage05 tiny result-table comparison passed;
+- native sensitivity grid of 36 designs passed;
+- Phase 8 suite passed 45 tests, 0 failed, 0 incomplete.
+
+See:
+
+- `docs/STAGE05_RESULT_TABLE_CONTRACT.md`
+- `docs/STAGE04_05_RESULT_TABLE_PARITY_REPORT.md`
+- `docs/STAGE05_TINY_GRID_SENSITIVITY.md`

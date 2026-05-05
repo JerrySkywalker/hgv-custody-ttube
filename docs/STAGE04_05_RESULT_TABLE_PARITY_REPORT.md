@@ -48,3 +48,11 @@ This is Stage05 tiny result-table parity against the guarded helper-level oracle
 - Add a separate safe old-runner wrapper only if strict cache/grid/plot/parallel controls can be proven.
 - Continue Stage02 full VTC event parity.
 - DA/DT/OpenD and ClosedD remain out of scope.
+
+## Final Validation
+
+Phase 8 suite passed: 45 passed, 0 failed, 0 incomplete.
+
+Code Analyzer was clean for new/modified MATLAB files checked in this sprint.
+
+Conclusion: Stage05 tiny result-table parity is complete for the guarded helper-level oracle and ready to feed Stage05 small-scale formal reproduction work. This does not authorize a full legacy Stage05 run or any Stage09/Stage14/Ch5 scan.

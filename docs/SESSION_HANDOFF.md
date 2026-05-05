@@ -187,3 +187,38 @@ No push was performed. No large artifact was added.
 3. Use `native_vtc` for Stage04/05 tiny result-table parity.
 4. Add persisted Stage01-03 golden artifacts under size limits.
 5. Add a guarded old Stage05 tiny runner only if strict case/grid/cache controls are implemented first.
+
+## Stage04-05 Result-Table Parity Sprint Update
+
+Branch: `codex/stage04-05-result-table-parity`
+
+Run directory: `runs/stage04_05_result_table_parity_20260505_022708`
+
+Old full Stage05 runner: not run.
+
+Legacy oracle type: guarded helper-level oracle. It rejects unsafe grids, plotting, figure saving, parallel execution, and any full-runner request.
+
+Native result table: `stage05_result_table.v0`, emitted by `runStage05TinySearch`.
+
+Parity status: Stage05 tiny result-table parity complete for guarded N01 tiny grid.
+
+Measured comparison:
+
+- row count match: yes
+- design key match: yes
+- max absolute `D_G` error: about `7.5e-5`
+- feasible match ratio: `1`
+- pass-ratio error: `0`
+
+Validation: Phase 8 suite passed 45 tests, 0 failed, 0 incomplete. Code Analyzer clean for checked new/modified MATLAB files.
+
+Still partial/out of scope:
+
+- Stage02 full VTC event parity;
+- DA/DT/OpenD;
+- ClosedD;
+- old full Stage05 runner;
+- Stage09/Stage14/Ch5;
+- STK, C++/MEX, GUI.
+
+Next recommendation: proceed to Stage05 small-scale formal reproduction using native_vtc and normalized result tables, while separately tightening Stage02 event parity.

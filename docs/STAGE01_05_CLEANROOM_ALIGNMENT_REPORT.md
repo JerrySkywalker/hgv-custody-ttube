@@ -87,3 +87,17 @@ Run: `runs/stage02_native_vtc_parity_20260505_014722`
 `native_vtc` is now the default trajectory backend for Stage05 tiny search. `native_point_mass` remains available as a backend option.
 
 Validation summary for this sprint selection: 34 passed, 0 failed, 0 incomplete.
+
+## Stage04-05 Result-Table Parity Update
+
+Run: `runs/stage04_05_result_table_parity_20260505_022708`
+
+Old full Stage05 runner: not run.
+
+Legacy oracle: guarded helper-level oracle in `src/+ttube/+legacy`.
+
+Native result table: standardized as `stage05_result_table.v0`.
+
+Stage05 tiny result-table parity: complete for the guarded N01 tiny grid. Measured `D_G` max absolute error is approximately `7.5e-5`, feasible match ratio is `1`, and pass-ratio error is `0`.
+
+Validation summary: 45 passed, 0 failed, 0 incomplete.
