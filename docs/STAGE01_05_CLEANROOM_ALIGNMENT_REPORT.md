@@ -45,8 +45,8 @@ Validation suite:
 
 | Stage | Status | Notes |
 |---|---|---|
-| Stage01 | approximate native | Flat-ENU pseudo-ECI case matches N01 semantics but not full legacy geodetic conversion. |
-| Stage02 | approximate native | Simplified point-mass trajectory; not bitwise legacy VTC parity. |
+| Stage01 | native geodetic parity for N01 | Uses WGS84 geodetic/ECEF, spherical direct geodesic, ENU heading, and simple GMST ECI rotation. N01 comparison against legacy helper passes strict tolerance. |
+| Stage02 | improved partial native | Uses geodetic/ECI initial state and VTC-inspired control/aero/atmosphere modules with spherical ECI point-mass dynamics. Coarse N01 magnitude comparison passes; not full legacy VTC curve parity. |
 | Stage03 Walker | native aligned | Reimplements legacy Walker-T circular semantics. |
 | Stage03 access | native aligned for formula | Implements range, Earth occlusion, and off-nadir checks independently. |
 | Stage04 FIM | native aligned for formula | Reimplements LOS angle-information accumulation. |
@@ -56,7 +56,26 @@ Validation suite:
 
 ## Blocked Or Approximate
 
-- Stage02 native is intentionally approximate; full geodetic VTC parity remains future work.
-- Stage01 full geodetic ECEF/ECI parity remains future work.
+- Stage02 native is intentionally approximate; full VTC state-equation and event parity remains future work.
 - Old full Stage05 tiny table parity remains blocked until a guarded old-runner exists.
 - No Stage09, Stage14, Ch5, ClosedD, STK, C++/MEX, or GUI work was performed.
+
+## Stage01-02 Production Parity Update
+
+Run: `runs/stage01_02_production_parity_20260505_011242`
+
+New checks completed:
+
+- `tests/unit/test_frameTransforms.m`
+- `tests/unit/test_buildStage01CasebankNative.m`
+- `tests/unit/test_hgvModelComponents.m`
+- `tests/unit/test_hgvDynamicsPointMass.m`
+- `tests/integration/test_stage01NativeVsLegacy.m`
+- `tests/integration/test_stage02NativeVsLegacyTrajectory.m`
+- Stage03-05 native tiny regressions
+
+Validation summary for this sprint selection: 24 passed, 0 failed, 0 incomplete.
+
+Stage01 judgment: production parity for the N01 geodetic/ECEF/ECI fields exercised by the tiny pipeline.
+
+Stage02 judgment: improved partial. It no longer uses flat pseudo-ECI or inline placeholder aero/control, but it is still a native spherical point-mass model rather than the exact legacy VTC state propagation.

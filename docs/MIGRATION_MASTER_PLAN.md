@@ -792,11 +792,33 @@ See:
 
 ## 11. Current Recommended Next Step
 
+## 11. Stage01-02 Production Parity Update
+
+Status: partial, improved.
+
+Stage01 native now uses native WGS84 geodetic-to-ECEF conversion, spherical direct-geodesic boundary placement, ENU heading rotation, and simple GMST ECEF-to-ECI rotation. The N01 native case comparison against the read-only legacy Stage01 helper passes with strict position and heading tolerances. Stage01 is no longer using the flat pseudo-ECI shortcut as its default native path.
+
+Stage02 native now uses Stage01 geodetic/ECI initial state, family-based constant alpha/bank control, VTC-inspired CL/CD coefficients, a simple US76-like atmosphere fallback, and spherical ECI point-mass dynamics. The N01 short trajectory comparison against the legacy Stage02 helper passes only as coarse magnitude parity. This is improved partial parity, not full legacy VTC curve parity.
+
+The static clean-room guard still passes. Stage03-05 tiny regression tests still pass after the Stage01/02 changes. No old full Stage05, Stage09, Stage14, Ch5, ClosedD, STK, C++/MEX, or GUI work was run or implemented.
+
+See:
+
+- `docs/STAGE01_02_PRODUCTION_PARITY_PLAN.md`
+- `docs/STAGE02_VTC_NATIVE_MODEL.md`
+
+## 12. Current Recommended Next Step
+
 Batch 3 scaffold has started. The next recommended step is review:
 
 - review `docs/BATCH3_LEGACY_STAGE01_03_BASELINE_PLAN.md`;
 - review and, if approved, extend the dry-run cache extractor for `stage01_03_minimal`;
 - add a guarded old Stage05 tiny comparison runner before claiming Stage05 old-new table parity;
 - keep Stage09/14, Ch5, ClosedD, STK, and C++/MEX out of scope.
+
+After this Stage01/02 parity sprint, the practical next step is either:
+
+- continue tightening Stage02 VTC curve parity and event behavior; or
+- proceed to Stage04/05 tiny result-table parity using the improved Stage01/02 native inputs.
 
 Do not jump directly to Stage05/09 large scans.

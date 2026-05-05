@@ -78,3 +78,27 @@ Not acceptable:
 ## Out Of Scope
 
 This sprint does not run full legacy Stage05, Stage09, Stage14, Ch5, ClosedD, STK, C++/MEX, or GUI work. Stage03-05 are regression surfaces only for this sprint.
+
+## Completion Notes
+
+Implemented:
+
+- native WGS84/geodetic/ECEF/ECI frame utilities;
+- native Stage01 N01 geodetic casebank output;
+- native Stage02 control, aero, and atmosphere component factories;
+- native Stage02 spherical ECI point-mass propagation from Stage01 geodetic/ECI initial conditions;
+- N01 native-vs-legacy Stage01 and Stage02 comparison tests;
+- Stage03-05 tiny regression validation after the Stage01/02 changes.
+
+Validation:
+
+- Stage01 N01 geodetic/ECEF/ECI comparison passed strict tolerance.
+- Stage02 short N01 trajectory comparison passed coarse magnitude tolerance.
+- Static clean-room guard passed.
+- Selected sprint regression suite passed 24 tests, 0 failed, 0 incomplete.
+- Code Analyzer was clean for new/modified MATLAB files checked in this sprint.
+
+Current judgment:
+
+- Stage01: production parity for N01 fields exercised by the tiny native pipeline.
+- Stage02: improved partial, because the native model is still spherical ECI point-mass rather than exact legacy VTC state propagation.

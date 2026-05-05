@@ -126,9 +126,38 @@ Not implemented:
 - `git status` was clean after final documentation commit check.
 - No push was performed.
 
+## Stage01-02 Production Parity Sprint Update
+
+Run directory: `runs/stage01_02_production_parity_20260505_011242`
+
+New commits:
+
+- `7cb5a1b docs: plan stage01-02 production parity`
+- `2982e33 feat: add native geodetic frame utilities`
+- `96bb1c9 feat: upgrade native stage01 geodetic casebank`
+- `dea2862 feat: factor native hgv model components`
+- `3050ab0 feat: improve native hgv dynamics toward vtc parity`
+
+Stage01 status: improved to N01 geodetic/ECEF/ECI parity. The default native casebank now uses WGS84 geodetic conversion, spherical direct-geodesic boundary placement, ENU heading rotation, and simple GMST ECEF-to-ECI rotation. `tests/integration/test_stage01NativeVsLegacy.m` passes strict N01 comparison against the read-only legacy helper.
+
+Stage02 status: improved partial. The default native trajectory now uses Stage01 geodetic/ECI initial state plus VTC-inspired control, aero, and atmosphere modules. It remains a spherical ECI point-mass implementation, not full legacy VTC state-equation parity. `tests/integration/test_stage02NativeVsLegacyTrajectory.m` passes coarse magnitude comparison; the old adapter velocity field is finite-difference based, so initial speed comparison uses a coarse tolerance.
+
+Static guard: passed. Legacy helper calls remain isolated outside native core/default pipeline.
+
+Regression selection: passed 24 tests, 0 failed, 0 incomplete:
+
+- static clean-room guard;
+- frame, Stage01, HGV model component, and HGV dynamics unit tests;
+- Stage01 and Stage02 native-vs-legacy integration tests;
+- Stage03-05 native tiny regression tests.
+
+Code Analyzer: clean for all new/modified MATLAB files checked in this sprint.
+
+No push was performed. Run artifacts remain ignored under `runs/`.
+
 ## Next Steps
 
-1. Upgrade native Stage01 from pseudo-ECI to full geodetic ECEF/ECI utilities.
-2. Replace the Stage02 point-mass prototype with a native VTC-compatible dynamics implementation and tighter legacy trajectory comparisons.
-3. Add persisted small golden artifacts under size limits.
+1. Tighten Stage02 VTC curve parity, including sigma/lat/lon/r state behavior and legacy event termination.
+2. Use the improved Stage01/02 native inputs for Stage04/05 tiny result-table parity.
+3. Add persisted Stage01-03 golden artifacts under size limits.
 4. Add a guarded old Stage05 tiny runner only if strict case/grid/cache controls are implemented first.
