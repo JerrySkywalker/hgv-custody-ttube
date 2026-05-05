@@ -36,3 +36,19 @@ This sprint is complete if the native Stage05 pipeline can run safe small and me
 ## Prohibited Work
 
 No old full Stage05 runner, Stage09, Stage14, Ch5, ClosedD, STK, C++/MEX, GUI, or large scan is run or implemented.
+
+## Completion Update
+
+Branch: `codex/stage05-full-native-reimplementation`
+
+Implemented native modules:
+
+- Stage05.1 search: `makeStage05Config`, `validateStage05Config`, `buildStage05SearchGrid`, `evaluateStage05DesignNative`, `packageStage05SearchResult`, and `runStage05NominalSearch`.
+- Stage05 cache/resume: `saveStage05SearchArtifact`, `loadStage05SearchArtifact`, and `writeStage05RunIndex`.
+- Stage05.2 postprocess/plot: `summarizeStage05Results`, `rankStage05FeasibleDesigns`, `extractStage05Frontier`, and `src/+ttube/+viz/+stage05/*`.
+- Stage05.3 Pareto/transition: `extractParetoFront`, `analyzeInclinationTransition`, and `analyzeStage05ParetoTransition`.
+- Full wrapper: `runStage05FullNative` with `smoke`, `tiny`, and `medium_safe` profiles.
+
+Validation result: the requested Stage05-focused regression suite passed 94 tests, 0 failed, 0 incomplete. Code Analyzer was clean for checked new/modified MATLAB files.
+
+Completion judgment: native Stage05 module reimplementation is complete for the intended safe small/medium-grid native stack. Production-scale parity is still partial because the old full Stage05 runner was intentionally not executed, plot parity is smoke/artifact-level rather than pixel-level, and larger formal reproduction/golden artifacts remain future work.

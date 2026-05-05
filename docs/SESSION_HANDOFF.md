@@ -188,6 +188,49 @@ No push was performed. No large artifact was added.
 4. Add persisted Stage01-03 golden artifacts under size limits.
 5. Add a guarded old Stage05 tiny runner only if strict case/grid/cache controls are implemented first.
 
+## Stage05 Full Native Reimplementation Sprint Update
+
+Branch: `codex/stage05-full-native-reimplementation`
+
+Run directory: `runs/stage05_full_native_reimplementation_20260505_025047`
+
+Old full Stage05 runner: not run.
+
+New commits:
+
+- `7e96823 docs: plan full native stage05 reimplementation`
+- `8cd8d28 feat: add stage05 config and artifact contracts`
+- `bd944b3 feat: implement native stage05 nominal search`
+- `8a1fc8a feat: add stage05 summary frontier pareto and artifact io`
+- `4eb9333 feat: add stage05 native plot bundle`
+- `0b6a908 feat: add full native stage05 pipeline`
+- `e8261b4 test: validate stage05 module parity with legacy oracle`
+- `1767360 test: run stage05 medium-safe native reproduction`
+- `e6561b4 test: validate full native stage05 suite`
+
+Stage05.1 search status: native implementation complete for guarded small and medium-safe grids. The formal entry point is `ttube.experiments.stage05.runStage05NominalSearch`; `runStage05TinySearch` remains a compatibility wrapper.
+
+Stage05 artifact/cache/resume status: `stage05_search_result.v0`, `stage05_summary.v0`, `stage05_frontier.v0`, `stage05_pareto_transition.v0`, and `stage05_plot_bundle.v0` are defined. Search results can be saved, loaded, indexed, and minimally resumed through config fingerprint matching.
+
+Stage05.2 plot/postprocess status: native summary, ranking, frontier, heatmap-ready tables, and plot bundle export are implemented under `ttube.experiments.stage05` and `ttube.viz.stage05`. Viz consumes artifacts and does not recompute DG.
+
+Stage05.3 Pareto/transition status: native Pareto front, inclination transition, and pass-ratio diagnostics artifacts are implemented and tested.
+
+Medium-safe reproduction: passed on a 72-design native grid using `trajectoryBackend = native_vtc`; generated search, summary, frontier, Pareto/transition, and plot artifacts in temporary output only.
+
+Legacy oracle status: helper-level guarded oracle only. Module-level parity is available for the tiny N01 grid. No old full Stage05 runner, default large grid, Stage09, Stage14, or Ch5 path was executed.
+
+Validation: requested Stage05 full native suite passed 94 tests, 0 failed, 0 incomplete. Static clean-room guard passed. Code Analyzer was clean for checked new/modified MATLAB files.
+
+Completion judgment: yes for native Stage05 module reimplementation over safe small/medium profiles; partial for production-scale/full legacy-runner parity because the old full runner was intentionally prohibited, plot parity is not pixel-level, and larger formal golden artifacts remain pending.
+
+Next steps:
+
+1. Add a larger safe Stage05 profile once runtime and artifact size bounds are fixed.
+2. Persist Stage04/05 golden artifacts under the 5 MB Git limit.
+3. Continue Stage02 event parity before broadening production claims.
+4. Start Stage06 heading-family migration after Stage05 golden artifacts are stable.
+
 ## Stage04-05 Result-Table Parity Sprint Update
 
 Branch: `codex/stage04-05-result-table-parity`

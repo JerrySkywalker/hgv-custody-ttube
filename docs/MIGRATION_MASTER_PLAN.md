@@ -211,6 +211,9 @@ Target modules:
 - `ttube.core.metrics`
 - `ttube.viz.ch4`
 
+2026-05-05 update: Stage05 has a native implementation in `ttube.experiments.stage05` and `ttube.viz.stage05`.
+The implemented native module stack covers the Stage05.1 nominal search, Stage05.2 non-plot post-processing plus plot bundle, and Stage05.3 Pareto/transition analysis for guarded small and medium-safe grids. It emits `stage05_search_result.v0`, `stage05_summary.v0`, `stage05_frontier.v0`, `stage05_pareto_transition.v0`, and `stage05_plot_bundle.v0` artifacts. Legacy comparison is helper-level only; the old full Stage05 runner remains prohibited and was not run.
+
 ### Stage06: Heading-family Walker search
 
 Old purpose:
